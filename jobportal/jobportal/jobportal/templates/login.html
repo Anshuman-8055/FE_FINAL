@@ -1,0 +1,575 @@
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Login to Naukri</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+        }
+
+        .left-part {
+            flex: 1;
+            padding: 20px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .right-part {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            font-size: 24px;
+        }
+
+        .checkbox {
+            margin-bottom: 15px;
+        }
+
+        .register-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .login-form {
+            margin-top: 20px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .login-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .otp-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .google-btn {
+            background: #db4437;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .separator {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #888;
+        }
+        
+/* 
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        } */
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            /* background: white; */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .left-panel {
+            flex: 1;
+            padding: 40px;
+            background:#1f4a40 ;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .right-panel {
+            flex: 1.5;
+            padding: 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .illustration {
+            max-width: 280px;
+            margin-bottom: 30px;
+        }
+
+        .benefits {
+            list-style: none;
+        }
+
+        .benefits li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .benefits li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group label span {
+            color: #ff4444;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #1f4a40;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #5fb19e;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .helper-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .work-status {
+            display: flex;
+            gap: 20px;
+        }
+
+        .status-radio {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .status-option {
+            flex: 1;
+            padding: 20px;
+            border: 2px solid #1f4a40;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-option:hover {
+            border-color: #5fb19e;
+            background: rgba(74, 144, 226, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .status-radio:checked + .status-option {
+            border-color: #5fb19e;
+            background: rgba(74, 144, 226, 0.1);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.1);
+        }
+
+        .status-radio:focus + .status-option {
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+
+        .status-radio:checked + .status-option::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 32px 32px 0;
+            border-color: transparent #5fb19e transparent transparent;
+            animation: checkmark 0.3s ease-out forwards;
+        }
+
+        .status-radio:checked + .status-option::after {
+            content: '✓';
+            position: absolute;
+            right: 6px;
+            top: 4px;
+            color: white;
+            font-size: 12px;
+            animation: checkmarkBounce 0.3s ease-out forwards;
+        }
+
+        .status-icon {
+            color: #5fb19e;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(74, 144, 226, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .status-content {
+            flex: 1;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .register-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #5fb19e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .register-btn:hover {
+            background-color: #5fb19e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.2);
+        }
+
+        .register-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px #5fb19e;
+        }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #1f4a40;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .google-btn:hover {
+            background: #1f4a40;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px #5fb19e;
+        }
+
+        .or-divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+            position: relative;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #1f4a40;
+        }
+
+        .or-divider::before {
+            left: 0;
+        }
+
+        .or-divider::after {
+            right: 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes checkmark {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes checkmarkBounce {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                padding: 20px;
+            }
+
+            .right-panel {
+                padding: 20px;
+            }
+
+            .work-status {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .status-option {
+                width: 100%;
+            }
+
+            .illustration {
+                max-width: 200px;
+                margin: 0 auto 20px;
+            }
+        }
+
+        /* Input animation */
+        .form-group input:not(:placeholder-shown) {
+            border-color: #4a90e2;
+        }
+
+        .form-group input:not(:placeholder-shown) + .helper-text {
+            color: #4a90e2;
+        }
+
+    </style>
+</head>
+<body>
+   
+      <!-- header -->
+    <nav class="navbar" style="background-color: #1f4a40;">
+        <div class="container" style="background-color: #1f4a40;">
+            <div class="nav_wrapper">
+                <a style="padding-left: 60px;" href="{{ url_for('home' ) }}" class="logo">
+                    <img style="width: 80px; height: 60px; padding-left: 20px;" src="{{ url_for('static', filename='images/logo.PNG') }}" alt="logo">
+                    <h3 style="text-decoration: none; color: white; padding-right: 190px;"><a style="text-decoration: none; color: white;" href="{{ url_for('home' ) }}">JobElevate</a></h3>
+                </a>
+                <ul class="nav_menu">
+                    <li class="nav_list"><a href="{{ url_for('home' ) }}" class="nav_link">Home</a></li>
+                    <li class="nav_list dropdown">
+                        <a href="" class="nav_link dropdown-btn">Jobs</a>
+                        <div class="dropdown-content">
+                            <div class="category-container">
+                                <div class="category">Popular categories</div>
+                                <a href="{{ url_for('itjobs') }}">IT jobs</a>
+                                <a href="{{ url_for('sales') }}">Sales jobs</a>
+                                <a href="{{ url_for('marketing') }}">Marketing jobs</a>
+                                <a href="{{ url_for('data') }}">Data Science jobs</a>
+                                <a href="{{ url_for('hr') }}">HR jobs</a>
+                                <a href="{{ url_for('engineering') }}">Engineering jobs</a>
+                            </div>
+                            <div class="category-container">
+                                <div class="category">Jobs in demand</div>
+                                <a href="{{ url_for('fresher') }}">Fresher jobs</a>
+                                <a href="{{ url_for('mnc') }}">MNC jobs</a>
+                                <a href="{{ url_for('remote') }}">Remote jobs</a>
+                                <a href="{{ url_for('work') }}">Work from home jobs</a>
+                                <a href="{{ url_for('walk') }}">Walk-in jobs</a>
+                                <a href="{{ url_for('part') }}">Part-time jobs</a>
+                            </div>
+                            <div class="category-container">
+                                <div class="category">Jobs by location</div>
+                                <a href="#">Jobs in Delhi</a>
+                                <a href="#">Jobs in Mumbai</a>
+                                <a href="#">Jobs in Bangalore</a>
+                                <a href="#">Jobs in Hyderabad</a>
+                                <a href="#">Jobs in Chennai</a>
+                                <a href="#">Jobs in Pune</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav_list"><a href="{{ url_for('itjobs') }}" class="nav_link">Join Us</a></li>
+                    <li class="nav_list"><a href="{{ url_for('contact') }}" class="nav_link">Contact</a></li>
+                    <li class="nav_list"><button class="btn"><a style="text-decoration: none; color: white;" href="{{ url_for('register') }}">Register</a></button></li>
+                    <li class="nav_list"><button class="btn">Login</button></li>
+                </ul>
+                <div class="menu_btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- login -->
+    <div style="height: 450px;" class="container">
+        <div class="left-part">
+            <h2>New to JobElevate</h2>
+            <div class="checkbox">✔ One click apply using naukri profile.</div>
+            <div class="checkbox">✔ Get relevant job recommendations.</div>
+            <div class="checkbox">✔ Showcase profile to top companies and consultants.</div>
+            <div class="checkbox">✔ Know application status on applied jobs.</div>
+            <a href="{{ url_for('register') }}" style="text-decoration: none; display: inline-block;">
+                <button class="register-btn">Register for Free</button>
+            </a>
+        </div>
+        <div class="right-part">
+            <h2 style="text-align: center; font-size: 40px;">Login</h2>
+            <form method="post" class="login-form">
+                <input style="width: 500px;" type="text" name="email" placeholder="Enter Email ID">
+                <div style="position: relative; width: 500px;">
+                    <input style="width: 100%;" type="password" name="password" id="password" required title="Password must be at least 8 characters, include a capital letter, a small letter, and a number.">
+                    <button type="button" onclick="togglePassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
+                <p class="helper-text">Password must be at least 8 characters, include a capital letter, a small letter, and a number.</p>
+                <button style="width: 500px; background-color: #5fb19e;" type="submit" class="login-btn">Login</button>
+               
+                <div class="separator">- Or -</div>
+                <button style="width: 500px;" type="button" class="google-btn">Don't have account? <a style="text-decoration: none; color: white;" href="{{ url_for('register' ) }}">Register</a></button>
+                <div class="forgot-password" style="text-align: center; padding-top: 10px;">
+                    <a  style="text-decoration: none; color: black; text-align: center;"  href="#">Forgot Password?</a>
+                </div>
+            </form>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        </div>
+       
+    </div>
+</body>
+<script>
+function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.getElementById('toggleIcon');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
+
+document.querySelector('form').addEventListener('submit', function(e) {
+    const password = document.getElementById('password').value;
+    const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!strongPassword.test(password)) {
+        alert('Password must be at least 8 characters, include a capital letter, a small letter, and a number.');
+        e.preventDefault();
+    }
+});
+</script>
+</html>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %} 
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card" >
+        <h1>S&C Global Network - AI - Hi Tech - Data Science Analyst</h1>
+        <p>Accenture</p>
+        <p class="info"><strong>Experience:</strong> 1-4 years</p>
+        <p class="info"><strong>Salary:</strong> Not disclosed</p>
+        <p class="info"><strong>Location:</strong>Kolkata</p>
+        <p class="info"><strong>Posted:</strong> 2 days ago</p>
+     
+        <p class="info"><strong>Applicants:</strong> 25</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p>Entity:- Accenture Strategy & Consulting <br>
+
+            Team:- Global Network Data & AI <br>
+            
+            Practice:- High Tech <br>
+            
+            Job location:- Bangalore, Gurgaon, Hyderabad, Kolkata <br><br>
+
+            
+            About S&C - Global Network:- <br>
+            
+            Accenture Strategy & Consulting Global Network - Data & AI practice help our clients grow their business in entirely new ways. Analytics enables our clients to achieve high performance through insights from data - insights that inform better decisions and strengthen customer relationships. From strategy to execution, Accenture works with organizations to develop analytic capabilities - from accessing and reporting on data to predictive modelling - to outperform the competition.</p>
+
+
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role:: Data Science & Analytics - Other
+        </strong></p>
+        
+        <p><strong>Industry Type: </strong>IT Services & Consulting</p>
+        
+        <p><strong>Department: </strong>Data Science & Analytics</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>Accenture is a global professional services company with leading capabilities in digital, cloud and security. Combining unmatched experience and specialized skills across more than 40 industries, we offer Strategy and Consulting, Interactive, Technology and Operations services—all powered by the world’s largest network of Advanced Technology and Intelligent Operations centers. Our 514,000 people deliver on the promise of technology and human ingenuity every day, serving clients in more than 120 countries. We embrace the power of change to create value and shared success for our clients, people, shareholders, partners and communities.
+            Company Info
+            Address:
+            PRESTIGE - RMZ STAR TECH, No 138 (part) and 140 Industrial Layout Koramangala , Hosur Road Bangalore, Bengaluru Urban, Karnataka, BANGALORE, Karnataka, India</p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

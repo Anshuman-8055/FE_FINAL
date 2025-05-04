@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card">
+        <h1>Data Entry Operator</h1>
+        <p>Amit Goel</p>
+        <p class="info"><strong>Experience:</strong> 0-4 years</p>
+        <p class="info"><strong>Salary:</strong> 1.25-4 Lacs PA</p>
+        <p class="info"><strong>Location:</strong> Hyderabad, Pune, Mumbai (All Areas)</p>
+        <p class="info"><strong>Posted:</strong> 🕒 7 Days ago</p>
+        <p class="info"><strong>Openings:</strong> 50</p>
+        <p class="info"><strong>Applicants:</strong> 1204</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p>Mainly Responsible for Customer service/Data Entry work
+
+            Freshers can also apply.
+            Graduate experience.
+            Good knowledge of MS Excel, Word, PowerPoint, etc.
+            
+            Required Candidate profile
+            
+            Basic Typing speed 15 wpm To 30 wpm
+            Basic Computer Knowledge. ( (MS Office, MS Excel, etc.))
+            Age Criteria:- 18 to 30 Years
+            Qualification:- HSC Pass or above
+            Role: Data Entry / MIS
+            Industry Type: BPM / BPO
+            Department: Customer Success, Service & Operations
+            Employment Type: Full Time, Permanent
+            Role Category: Back Office
+            Education
+            UG: Graduation Not Required</p>
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role: </strong>Product Operation Associate</p>
+        
+        <p><strong>Industry Type: </strong> Recruitment / Staffing</p>
+        
+        <p><strong>Department: </strong>Product Management</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>E-Solutions IT Services Pvt Ltd
+            Company Info
+            Address:Mumbai
+            .</p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

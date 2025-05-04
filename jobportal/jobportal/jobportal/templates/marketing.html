@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Listings</title>
+    
+     <style>
+         a{
+            text-decoration: none;
+            color: #333;
+        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+/* Filters Section */
+.filters {
+    width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters h3, .filters h4 {
+    margin-bottom: 10px;
+}
+
+.filters label {
+    display: block;
+    margin: 5px 0;
+}
+
+/* Job Listings */
+.job-listings {
+    flex: 1;
+    margin-left: 20px;
+}
+
+/* Job Card */
+.job-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Job Card Header */
+.job-header {
+    display: flex;
+    justify-content: space-between; /* Moves elements to both sides */
+    align-items: center;
+}
+
+.company-logo {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+.job-card h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.company {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Icons & Details */
+.job-details {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.job-details span {
+    display: inline-block;
+    margin-right: 10px;
+    color: #666;
+}
+
+/* Skills & Tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tags span {
+    background: #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Footer */
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+.save-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+     </style>
+</head>
+<body>
+    <div class="container" style="margin: 10%;">
+        <aside class="filters">
+            <h3>All Filters</h3>
+            <h4>Department</h4>
+            <label><input type="checkbox" checked>Marketing & Communication </label>
+            <label><input type="checkbox" checked>Sales & Business Development</label>
+            <label><input type="checkbox" checked> Finance & Accounting</label>
+            <h4>Experience</h4>
+            <input type="range" min="0" max="20" value="0">
+            <h4>Salary</h4>
+            <label><input type="checkbox"> 0-3 Lakhs</label>
+            <label><input type="checkbox"> 3-6 Lakhs</label>
+            <label><input type="checkbox"> 6-10 Lakhs</label>
+            <label><input type="checkbox"> 10-15 Lakhs</label>
+            <h4>Location</h4>
+            <label><input type="checkbox">Bengaluru</label>
+            <label><input type="checkbox">Hyderabad</label>
+            <label><input type="checkbox">Chennai</label>
+            <label><input type="checkbox">Delhi/NCR</label>
+            <h4>Company Type</h4>
+            <label><input type="checkbox">Foreign MNC</label>
+            <label><input type="checkbox">Corporate</label>
+            <label><input type="checkbox">Indian MNC</label>
+            <label><input type="checkbox">Startup</label>
+            <h4>Work mode</h4>
+            <label><input type="checkbox">Work from office</label>
+            <label><input type="checkbox">Hybrid</label>
+            <label><input type="checkbox">Remote</label>
+            <label><input type="checkbox">Temp. WFH due to..</label>
+
+        </aside>
+
+        <main class="job-listings">
+            
+
+            
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('marketing1' ) }}">
+                        Digital Marketing Executive (Fresher - MBA)</h2></a>
+                        <p class="company"><strong>Swaas Systems</strong> <span class="rating">⭐ 3.5</span> <span class="reviews">29 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/swa.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-1 Yrs | 💰 3-3.5 Lacs PA | 📍Chennai</p>
+                    <p>📄 We are looking for a highly motivated and creative MBA fresher</p>
+                    <p class="tags">
+                        <span>Brand Marketing</span>
+                        <span>Digital Marketing</span>
+                        <span>Digital</span>
+                        <span>Brand</span>
+                        <span>Branding</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 11 days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('marketing2' ) }}">Marketing Executive @Jaipur </h2></a>
+                        <p class="company"><strong>Edwise</strong> <span class="rating">⭐ 3.7</span> <span class="reviews">132 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/e.jpeg') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-2 Yrs | 💰 Not disclosed | 📍Jaipur</p>
+                    <p>📄 Male candidates ONLY..</p>
+                    <p class="tags">
+                        <span>Field Marketing</span>
+                        <span>Marketing</span>
+                        <span>Branding</span>
+                        <span>Field</span>
+                       
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 12 Days Ago</p>
+                    
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Marketing Executive</h2>
+                        <p class="company"><strong>Arun Kumar</strong> </p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/acc.PNG') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-4 Yrs | 💰 3.5-8.5 Lacs PA | 📍Remote</p>
+                    <p>📄 Develop & execute innovate marketing strategies & Advertising</p>
+                    <p class="tags">
+                        <span>Promotions</span>
+                        <span>Advertising</span>
+                        <span>Marketing</span>
+                        <span>Publicity</span>
+                        <span>Strategic Marketing Planning</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Day Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Sales & Marketing Executive</h2>
+                        <p class="company"><strong>Muthra Industries</strong><span class="rating">⭐ 4.5</span> <span class="reviews">12 Reviews</span></p>
+                        
+                    </div>
+                    <img src="{{ url_for('static', filename='images/v.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-5 Yrs | 💰 2-7 Lacs PA | 📍Chennai</p>
+                    <p>📄 Male MBA/PGDM graduate with strong communication, negotiation...</p>
+                    <p class="tags">
+                        <span>Sales and Marketing</span>
+                        <span>B2B Sales</span>
+                        <span>Lead Generation</span>
+                        <span>Business Development</span>
+                        <span>Price</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 6 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Marketing Operation Executive</h2>
+                        <p class="company"><strong>Tech Manos</strong> <span class="rating">⭐ 4.5</span> <span class="reviews">19 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/cipla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-1 Yrs | 💰 Not disclosed | 📍Kota</p>
+                    <p>📄 2+ years in marketing operations, excellent communication skills </p>
+                    <p class="tags">
+                        <span>Marketing</span>
+                        <span>digital marketing</span>
+                        <span>operation management</span>
+                        <span>team management</span>
+                        <span>customer</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 4 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Influencer Marketing Executive</h2>
+                        <p class="company"><strong>Proton Communications (R)</strong> </p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/acc.PNG') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-2 | 💰 Not disclosed | 📍Mumbai Suburban</p>
+                    <p>📄 Desired Candidate Profile. 0-2 years of experience in influencer marketing  </p>
+                    <p class="tags">
+                        <span>Influencer Marketing</span>
+                        <span>Brand Marketing</span>
+                        <span>Social Media</span>
+                        <span>Social Media Content</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 4 Days Ago</p>
+                    
+                </div>
+            </div>
+           
+        </main>
+    </div>
+</body>
+</html>
+{% endblock %}

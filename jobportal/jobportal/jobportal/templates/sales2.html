@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card" >
+        <h1>Customer Sales Executive - Business Loans</h1>
+        <p>Tata Capital</p>
+        <p class="info"><strong>Experience:</strong> 0-5 years</p>
+        <p class="info"><strong>Salary:</strong>Not Disclosed</p>
+        <p class="info"><strong>Location:</strong>Kolkata, Mumbai, New Delhi, Hyderabad, Pune, Chennai, Bengaluru</p>
+        <p class="info"><strong>Posted:</strong> 1 day ago</p>
+        <p class="info"><strong>Openings:</strong> 1</p>
+        <p class="info"><strong>Applicants:</strong> 19</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        
+            <li>With help of Supervisor/ Manager, Identify the customers for protentional Business</li>
+            
+            <li>Collect the documents from Customers and validate as per the organization norms
+            </li>
+            <li>Logging the case in the system as per SOP and follow the process for disbursement.</li>
+            <li>Fulfil - the Sanction ratio as per organisation requirement</li>
+            <li>Meeting the Customer requirements & cross- sell multiple products, under the guidance of Supervisor/ Manager.</li>
+            <li>With help of Manager / Supervisor, empanelment of new vendor and develop relationships with them</li>
+            <li>With help of Manager / Supervisor, ensure compliance to all Audit / RBI regulations.</li>
+            <li>Under Graduate/ Graduate in any discipline
+
+            </li>
+        </ul>  
+
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role:Direct Sales Executive</strong></p>
+        
+        <p><strong>Industry Type: </strong>Financial Services</p>
+        
+        <p><strong>Department: </strong> Sales & Business Development</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>Tata Capital Limited ("TCL"), the flagship financial services company of the Tata Group, is a subsidiary of Tata Sons Private Limited and is registered with the Reserve Bank of India as a Systemically Important Non-Deposit Accepting Core Investment Company ("CIC"). Tata Capital and its subsidiaries are engaged in providing/supplying a wide array of services/products in the financial services sector and operates across various areas of business: Commercial Finance, Consumer Loans, Wealth Services and distribution and marketing of Tata Cards.</p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

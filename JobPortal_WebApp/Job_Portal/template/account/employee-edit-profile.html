@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- HOME -->
+<section class="section-hero overlay inner-page bg-image"
+  style="background-image: url('{% static 'images/hero_1.jpg' %}');" id="home-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-white font-weight-bold">Profile Settings</h1>
+        <div class="custom-breadcrumbs">
+          <a href="{% url 'jobapp:home' %}">Home</a> <span class="mx-2 slash">/</span>
+          <span class="text-white"><strong>Profile Settings</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="site-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Profile Menu</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#personal-info">Personal Information</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#education">Education</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#experience">Work Experience</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#skills">Skills</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#preferences">Job Preferences</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#security">Security Settings</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9">
+        {% include 'messages.html' %}
+
+        <!-- Personal Information Section -->
+        <div class="card mb-4" id="personal-info">
+          <div class="card-header">
+            <h4 class="mb-0">Personal Information</h4>
+          </div>
+          <div class="card-body">
+            <form method="POST" class="p-4">
+              {% csrf_token %}
+              {% for field in form %}
+                {% if field.name == 'gender' %}
+                <div class="row form-group mb-4">
+                  <div class="col-md-12 mb-3 mb-md-0">
+                    <label class="text-black">Gender</label>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="gender" id="male" value="M"
+                        {% if field.value == 'M' %} checked {% endif %}>
+                      <label class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="gender" id="female" value="F"
+                        {% if field.value == 'F' %} checked {% endif %}>
+                      <label class="form-check-label" for="female">Female</label>
+                    </div>
+                  </div>
+                </div>
+                {% else %}
+                <div class="row form-group">
+                  <div class="col-md-12 mb-3 mb-md-0">
+                    <label class="text-black" for="id_{{ field.name }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type }}" class="form-control" name="{{ field.name }}"
+                      id="id_{{ field.name }}" value="{{ field.value }}"
+                      placeholder="{{ field.field.widget.attrs.placeholder }}">
+                  </div>
+                </div>
+                {% endif %}
+              {% endfor %}
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" value="Update Profile" class="btn btn-primary">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="card mb-4" id="education">
+          <div class="card-header">
+            <h4 class="mb-0">Education</h4>
+          </div>
+          <div class="card-body">
+            <form class="p-4">
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black">Highest Education</label>
+                  <select class="form-control">
+                    <option>Select Education Level</option>
+                    <option>High School</option>
+                    <option>Bachelor's Degree</option>
+                    <option>Master's Degree</option>
+                    <option>PhD</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black">Field of Study</label>
+                  <input type="text" class="form-control" placeholder="e.g. Computer Science">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" value="Add Education" class="btn btn-primary">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="card mb-4" id="skills">
+          <div class="card-header">
+            <h4 class="mb-0">Skills</h4>
+          </div>
+          <div class="card-body">
+            <form class="p-4">
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black">Add Skills</label>
+                  <input type="text" class="form-control" placeholder="e.g. Python, JavaScript, Project Management">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" value="Add Skills" class="btn btn-primary">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Job Preferences Section -->
+        <div class="card mb-4" id="preferences">
+          <div class="card-header">
+            <h4 class="mb-0">Job Preferences</h4>
+          </div>
+          <div class="card-body">
+            <form class="p-4">
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black">Preferred Job Types</label>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="fulltime">
+                    <label class="form-check-label" for="fulltime">Full Time</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="parttime">
+                    <label class="form-check-label" for="parttime">Part Time</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="internship">
+                    <label class="form-check-label" for="internship">Internship</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black">Preferred Location</label>
+                  <input type="text" class="form-control" placeholder="e.g. New York, Remote">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" value="Save Preferences" class="btn btn-primary">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Security Settings Section -->
+        <div class="card mb-4" id="security">
+          <div class="card-header">
+            <h4 class="mb-0">Security Settings</h4>
+          </div>
+          <div class="card-body">
+            <form class="p-4">
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black">Change Password</label>
+                  <input type="password" class="form-control" placeholder="Current Password">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <input type="password" class="form-control" placeholder="New Password">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <input type="password" class="form-control" placeholder="Confirm New Password">
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" value="Update Password" class="btn btn-primary">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .card {
+    border: none;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+  }
+
+  .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-link {
+    color: #495057;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+  }
+
+  .nav-link.active {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .form-control {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 1rem;
+  }
+
+  .btn-primary {
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.25rem;
+  }
+</style>
+
+{% endblock %}

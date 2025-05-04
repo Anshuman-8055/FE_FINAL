@@ -1,0 +1,353 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Listings</title>
+    
+     <style>
+         a{
+            text-decoration: none;
+            color: #333;
+        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+/* Filters Section */
+.filters {
+    width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters h3, .filters h4 {
+    margin-bottom: 10px;
+}
+
+.filters label {
+    display: block;
+    margin: 5px 0;
+}
+
+/* Job Listings */
+.job-listings {
+    flex: 1;
+    margin-left: 20px;
+}
+
+/* Job Card */
+.job-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Job Card Header */
+.job-header {
+    display: flex;
+    justify-content: space-between; /* Moves elements to both sides */
+    align-items: center;
+}
+
+.company-logo {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+.job-card h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.company {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Icons & Details */
+.job-details {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.job-details span {
+    display: inline-block;
+    margin-right: 10px;
+    color: #666;
+}
+
+/* Skills & Tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tags span {
+    background: #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Footer */
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+.save-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+     </style>
+</head>
+<body>
+    <div class="container" style="margin: 10%;">
+        <aside class="filters">
+            <h3>All Filters</h3>
+            <h4>Department</h4>
+            <label><input type="checkbox" checked> Engineering - Hardware</label>
+            <label><input type="checkbox" checked> Engineering - Software</label>
+            <label><input type="checkbox" checked> IT & Information Services</label>
+            <h4>Experience</h4>
+            <input type="range" min="0" max="20" value="0">
+            <h4>Salary</h4>
+            <label><input type="checkbox"> 0-3 Lakhs</label>
+            <label><input type="checkbox"> 3-6 Lakhs</label>
+            <label><input type="checkbox"> 6-10 Lakhs</label>
+            <label><input type="checkbox"> 10-15 Lakhs</label>
+            <h4>Location</h4>
+            <label><input type="checkbox">Bengaluru</label>
+            <label><input type="checkbox">Hyderabad</label>
+            <label><input type="checkbox">Pune</label>
+            <label><input type="checkbox">Delhi/NCR</label>
+            <h4>Company Type</h4>
+            <label><input type="checkbox">Foreign MNC</label>
+            <label><input type="checkbox">Corporate</label>
+            <label><input type="checkbox">Indian MNC</label>
+            <label><input type="checkbox">Startup</label>
+            <h4>Work mode</h4>
+            <label><input type="checkbox">Work from office</label>
+            <label><input type="checkbox">Hybrid</label>
+            <label><input type="checkbox">Remote</label>
+            <label><input type="checkbox">Temp. WFH due to..</label>
+
+        </aside>
+
+        <main class="job-listings">
+            
+<!-- 1 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('walk1' ) }}">
+                        Custmor Support Associate-Freshers</h2> </a>
+                        <p class="company"><strong>Firstsource</strong> <span class="rating">⭐ 4.2 |</span> <span class="reviews">1786 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/acc.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+           
+                <div class="job-details">
+                    <p>📅 0-2 Yrs | 💰 1-2 Lacs PA | 📍 Chennai</p>
+                    <p>📄UG graduates with strong communication, listening, and typing skills|Provide </p>
+                    <p class="tags">
+                        <span>Typing Skills</span>
+                        <span>Email Support</span>
+                        <span>Non Voice</span>
+                        <span>Internatinal BPO</span>
+                        <span>Scheduling</span>
+                       
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒Few hours Ago</p>
+                    
+                </div>
+            </div>
+<!-- 2 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('walk2' ) }}">
+                        Technical Support Voice and Chat Process in Malayalam & Hindi Language</h2></a>
+                        <p class="company"><strong>Allsec Technologies</strong> <span class="rating">⭐ 3.4 |</span> <span class="reviews">8927 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/ge.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-2 Yrs | 💰 2-3 Lac PA | 📍Chennai</p>
+                    <p>📄 !!!Freshers or Experienced Technical support -Voice!!! (Vela Chery Chennai)
+
+                        Mode of Work- Work from office</p>
+                    <p class="tags">
+                        <span>Foreign MNC</span>
+                        <span>BPO / Call Centre</span>
+                        <span>Email Process</span>
+                        <span>Chat Process</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 7 Days ago</p>
+                    
+                </div>
+            </div>
+
+<!-- 3 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Wipro is Hiring For Airoli Location-Voice/Blended</h2>
+                        <p class="company"><strong>Wipro</strong> <span class="rating">⭐ 3.8|</span> <span class="reviews">55154 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/wipro.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅0-3 Years | 💰 1-3.5 Lacs P.A | 📍Thane, Navi Mumbai</p>
+                    <p>📄Work on the various front offices client tools as required for the specific queues and provide customer service through calls.</p>
+                    <p class="tags">
+                        <span>CRS </span>
+                        <span>Excellent Communication In English</span>
+                        <span>Inbound</span>
+                        <span>Voice</span>
+                        <span>International BPO</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 25 Days ago</p>
+                </div>
+            </div>
+            <!-- 4 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Management Trainee</h2>
+                        <p class="company"><strong>Polaris Group India</strong> <span class="rating">⭐ 4|</span> <span class="reviews">1725 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/n.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0 Yrs | 💰 2.73-4.25 Lacs P>A | 📍Lucknow</p>
+                    <p>📄 After completing all levels you will be HEAD OF BRANCH. Your role is to manage the branch at BM LEVEL</p>
+                    <p class="tags">
+                        <span>Convincing Power</span>
+                        <span>Presentation Skills</span>
+                        <span>Public Speaking</span>
+                        <span>Idea Generation</span>
+                        <span>Creative Skills</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Month ago</p>
+                    
+                </div>
+            </div>
+            <!-- 5 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Customer Service Executive</h2>
+                        <p class="company"><strong>Hexaware Technologies</strong> <span class="rating">⭐ 3.4|</span> <span class="reviews">8976Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/sy.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 3-5 Yrs | 💰 1-2.5 Lacs P.A | 📍Thane, Navi Mumbai, Mumbai (All Areas)</p>
+                    <p>📄 "NEED GOOD ENGLISH COMMUNICATION" </p>
+                    <p class="tags">
+                        <span>Good English Communication</span>
+                        <span>Domestic Voice Process</span>
+                        <span>International BPO</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 2 Month ago</p>
+                    
+                </div>
+            </div>
+            <!-- 6 -->
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Hiring For Commercial Cards Bangalore City</h2>
+                        <p class="company"><strong>Axis Bank</strong> <span class="rating">⭐ 4.1|</span> <span class="reviews">6567 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/v.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 1-3 Yrs | 💰 50,000-3 Lacs P.A | 📍Bengaluru</p>
+                    <p>📄WE RECRUITE FOR RELATIONSHIP OFFICER BANKING SALES EXECUTIVE:  </p>
+                    <p class="tags">
+                        <span>Corporate Marketing</span>
+                        <span>Field Sales</span>
+                        <span>Casa Sales</span>
+                        <span>Wholesale</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 2.5 month ago</p>
+                    
+                </div>
+            </div>
+            
+        </main>
+    </div>
+</body>
+</html>
+{% endblock %}

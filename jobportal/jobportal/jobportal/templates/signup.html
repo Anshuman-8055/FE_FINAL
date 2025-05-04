@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Naukri</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+        }
+
+        .left-part {
+            flex: 1;
+            padding: 20px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .right-part {
+            flex: 1;
+            padding: 20px;
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            font-size: 24px;
+        }
+
+        .checkbox {
+            margin-bottom: 15px;
+        }
+
+        .register-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .login-form {
+            margin-top: 20px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .login-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .otp-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .google-btn {
+            background: #db4437;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .separator {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div style="height: 400px;" class="container">
+        <div class="left-part">
+            <h2>New to JobElevate</h2>
+            <div class="checkbox">✔ One click apply using naukri profile.</div>
+            <div class="checkbox">✔ Get relevant job recommendations.</div>
+            <div class="checkbox">✔ Showcase profile to top companies and consultants.</div>
+            <div class="checkbox">✔ Know application status on applied jobs.</div>
+            <button class="register-btn">Register for Free</button>
+        </div>
+        <div class="right-part">
+            <h2 style="text-align: center;">SignUp</h2>
+            <form class="login-form">
+                <input style="width: 300px;" type="text" placeholder="Username">
+                <input style="width: 300px;" type="text" placeholder="Enter Email ID ">
+                <input style="width: 300px;" type="password" placeholder="Enter Password">
+                <button style="width: 300px;" type="submit" class="login-btn">SignUp</button>
+               
+                <div class="separator">- Or -</div>
+                <button style="width: 300px;" type="button" class="google-btn">Sign in with Google</button>
+                <div class="forgot-password">
+                    <a href="#">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

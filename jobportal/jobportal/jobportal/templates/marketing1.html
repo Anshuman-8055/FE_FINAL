@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card">
+        <h1>Digital Marketing Executive (Fresher - MBA)</h1>
+        <p>Swaas Systems</p>
+        <p class="info"><strong>Experience:</strong> 0-1 years</p>
+        <p class="info"><strong>Salary:</strong> 3.5-5 Lacs PA</p>
+        <p class="info"><strong>Location:</strong>Chennai</p>
+        <p class="info"><strong>Posted:</strong> 12 days  ago</p>
+        <p class="info"><strong>Openings:</strong> 2</p>
+        <p class="info"><strong>Applicants:</strong> 729</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p> Greetings from SwaaS
+
+            Location : Guindy, Chennai
+            
+            
+            JD:
+            
+            
+            We are looking for a highly motivated and creative MBA fresher to join our digital marketing team. This role is ideal for individuals passionate about digital marketing, social media, SEO, and content marketing. The candidate will work closely with the marketing team to enhance our online presence and drive engagement.</p>
+
+        <ul>
+            <li>Assist in planning, executing, and optimizing digital marketing campaigns across various platforms (Google Ads, Facebook, Instagram, LinkedIn, etc.).</li>
+            <li>Conduct market research and competitor analysis to identify trends and opportunities.</li>
+            <li>Manage social media accounts, create content, and engage with the audience to boost brand visibility.</li>
+            <li>Implement SEO strategies to improve website ranking and organic traffic.</li>
+            <li>Collaborate with the content team to develop engaging blog posts, newsletters, and email marketing campaigns.</li>
+            <li>Monitor and analyze campaign performance using analytics tools like Google Analytics, SEMrush, and other tracking tools.</li>
+            <li>Support lead generation and brand awareness initiatives through innovative digital strategies.</li>
+            <li>Stay updated with the latest industry trends, algorithm changes, and digital marketing tools.
+
+            </li>
+        </ul>  
+
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role:Digital Marketing - Other</strong></p>
+        
+        <p><strong>Industry Type: </strong>IT Services & Consulting</p>
+        
+        <p><strong>Department: </strong> Marketing & Communication</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>SwaaS is a 5 million dollar company out of US and we are recruiting for our Indian operations here. IT has around 150 technology employees executing exciting projects for US clients
+
+            and building products in the CRM, Digital Marketing, LMS and HRMS domains.
+            
+            SwaaS is led by technology leaders with more than 22 years of industry experience -
+            
+            hands-on mentoring the tech team and delivering projects to our clients. We are in this industry for 11 years going strong with many more projects in hand.
+            
+            
+            SwaaS is a pure play technology company specialising in
+            
+            .NET(.NET Core, ASP.NET, SQL*Server, Azure)*
+            
+            Open Source (including Node, Angular, View, React, PHP, MySQL etc.),
+            
+            Mobile technologies (iOS, Android, Flutter),
+            
+            Cloud Technologies (Azure, AWS), DevOps(Morpheus, Ansible, GitHub, CI/CD tech etc.),
+            
+            Product practices (ServiceNow, SFDC)</p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

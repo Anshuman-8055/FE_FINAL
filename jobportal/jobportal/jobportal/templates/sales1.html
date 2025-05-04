@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card" >
+        <h1>Executive Sales & Business Development</h1>
+        <p>Evolute Group</p>
+        <p class="info"><strong>Experience:</strong> 0-1 years</p>
+        <p class="info"><strong>Salary:</strong> 3.5-5 Lacs PA</p>
+        <p class="info"><strong>Location:</strong>Kochi, Mumbai</p>
+        <p class="info"><strong>Posted:</strong> 2 days  ago</p>
+        <p class="info"><strong>Openings:</strong> 1</p>
+        <p class="info"><strong>Applicants:</strong> 15</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p> ** Looking for only graduate FRESHERS **
+
+            Job Location : Kochi,Mumbai
+            
+            Shifts : 24*7 ( 5 days of work from office).</p>
+
+        <ul>
+            <li>As a Support Analyst, you will be responsible for assisting end users on applications problems, system administration issues, or network concerns</li>
+            <li>Diagnose, prioritize, troubleshoot, and resolve IT incidents reported by the users via telephone, chat, email or walk-ins</li>
+            <li>Identify and escalate tickets requiring urgent attention and action</li>
+            <li>Log all contacts and document all the activities and results accurately and completely within the incident management tool</li>
+            <li>Deal with and resolve helpdesk requests</li>
+            <li>Take ownership of user problems and resolve the problems on behalf of the user and communicate progress in a timely manner</li>
+            <li>To maintain and fine-tune a high degree of customer service for all support queries and adhere to all service management principles</li>
+            <li>Open to working in a 24x7 environment with rotating shifts and rotating weeks off
+
+            </li>
+        </ul>  
+
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role:IT Support - Other</strong></p>
+        
+        <p><strong>Industry Type: </strong>IT Services & Consulting</p>
+        
+        <p><strong>Department: </strong> IT & Information Security</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>Evolute group is a leading Indian ESDM (Electronics System Design & Manufacturing) &
+
+            diverse multi- business conglomerate spread across trading, electronics product design &
+            
+            marketing across verticals like Payment -Fintech, cleantech-energy storage and industrial
+            
+            electronics, software solutions. Our expertise in embedded engineering & power electronics,
+            
+            indigenous design & development capabilities and market presence in 20+ countries has
+            
+            helped us carve a niche in the underdeveloped and developing geographic markets.
+            
+            The list of customers is a testimony to its ability to combine product reliability, performance and
+            
+            competitive pricing with a strong customer centricity, enabled with extensive design &
+            
+            development expertise and leading- edge technologies, Evolute group aspires to achieve 50 % +
+            
+            CAGR growth in no of esteemed customers, empowered employees, top line revenue, profits for
+            
+            all in next 5 years which includes top line revenue of 1000s.</p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

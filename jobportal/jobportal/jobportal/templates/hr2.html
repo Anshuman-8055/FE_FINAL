@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card" >
+        <h1>Human Resources Executive
+        </h1>
+        <p>Marriott</p>
+        <p class="info"><strong>Experience:</strong> 0-7 years</p>
+        <p class="info"><strong>Salary:</strong> Not disclosed</p>
+        <p class="info"><strong>Location:</strong>Panaji</p>
+        <p class="info"><strong>Posted:</strong> 3 days ago</p>
+        <p class="info"><strong>Openings:</strong> 1</p>
+        <p class="info"><strong>Applicants:</strong> 25</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p>Assist in monitoring/tracking employee relations issues including resolution and follow-up.</p>
+        <ul>
+            <li>Assist and support management and the leadership team with handling and resolving Human Resources issues.</li>
+            <li>Monitor all hiring and recruitment processes for compliance with all local, state, and federal laws and company policies and standards</li>
+            <li>Inform Human Resources management of issues related to employee relations.</li>
+            <li>Respond to questions, requests, and concerns from employees and management regarding company and Human Resources programs, policies and guidelines.</li>
+            <li>Disseminate information to employees related to employer-employee relations, employee activities, and personnel policies and programs.</li>
+            <li>Review and ensure accurate maintenance of all employee records and files (eg, interview documents, I-9s).</li>
+            <li>Assist in logistics, administration, and scheduling of annual employee surveys.</li>
+            <li>Answer phone calls and record messages.</li>
+            <li>Assist management in hiring, training, scheduling, evaluating, counseling, disciplining, and motivating and coaching employees.</li>
+        </ul>
+
+
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role:Manager - Employee Relations - Other</strong></p>
+        
+        <p><strong>Industry Type: </strong>Hotels & Restaurants</p>
+        
+        <p><strong>Department: </strong>Human Resources</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>Marriott International, Inc. is based in Bethesda, Maryland, USA, and encompasses a portfolio of approximately 9,000 properties across more than 30 leading brands in 141 countries and territories</p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

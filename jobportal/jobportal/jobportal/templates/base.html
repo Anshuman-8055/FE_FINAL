@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Document</title>
+    
+</head>
+<body>
+    <nav class="navbar" style="margin-bottom: 40px;">
+        <div class="container">
+            <div class="nav_wrapper" >
+                <a style="padding-left: 60px;" href="{{ url_for('home' ) }}" class="logo">
+                    <img style="position: relative;right: 35px; width: 80px; height: 60px;"src="{{ url_for('static', filename='images/logo.PNG') }}" alt="logo">
+                    <h3 style="position: relative;right: 35px; text-decoration: none; color: white; padding-bottom: 10px; padding-right: 190px;"><a style="text-decoration: none; color: white; font-size: 1.5rem; padding-bottom: 20px;"  href="{{ url_for('home' ) }}">JobElevate</a></h3>
+                </a>
+                <ul class="nav_menu">
+                    <li class="nav_list"><a href="{{ url_for('home' ) }}" class="nav_link">Home</a></li>
+                    {% if request.endpoint != 'about' and request.endpoint != 'apply_job' %}
+                    <li class="nav_list dropdown">
+                        <a href="" class="nav_link dropdown-btn">Jobs</a>
+                        <div class="dropdown-content">
+                            <div class="category-container">
+                                <div class="category">Popular categories</div>
+                                <a href="{{ url_for('itjobs') }}">IT jobs</a>
+                                <a href="{{ url_for('sales') }}">Sales jobs</a>
+                                <a href="{{ url_for('marketing') }}">Marketing jobs</a>
+                                <a href="{{ url_for('data') }}">Data Science jobs</a>
+                                <a href="{{ url_for('hr') }}">HR jobs</a>
+                                <a href="{{ url_for('engineering') }}">Engineering jobs</a>
+                            </div>
+                            <div class="category-container">
+                                <div class="category">Jobs in demand</div>
+                                <a href="{{ url_for('fresher') }}">Fresher jobs</a>
+                                <a href="{{ url_for('mnc') }}">MNC jobs</a>
+                                <a href="{{ url_for('remote') }}">Remote jobs</a>
+                                <a href="{{ url_for('work') }}">Work from home jobs</a>
+                                <a href="{{ url_for('walk') }}">Walk-in jobs</a>
+                                <a href="{{ url_for('part') }}">Part-time jobs</a>
+                            </div>
+                            <div class="category-container">
+                                <div class="category">Jobs by location</div>
+                                <a href="{{ url_for('delhi' ) }}">Jobs in Delhi</a>
+                                <a href="{{ url_for('mumbai' ) }}">Jobs in Mumbai</a>
+                                <a href="{{ url_for('banglore' ) }}">Jobs in Bangalore</a>
+                                <a href="{{ url_for('hyderabad' ) }}">Jobs in Hyderabad</a>
+                                <a href="{{ url_for('chennai' ) }}">Jobs in Chennai</a>
+                                <a href="{{ url_for('pune' ) }}">Jobs in Pune</a>
+                            </div>
+                        </div>
+                    </li>
+                    {% endif %}
+                    <li class="nav_list"><a href="{{ url_for('itjobs') }}" class="nav_link">Join Us</a></li>
+                    <li class="nav_list"><a href="{{ url_for('contact') }}" class="nav_link">Contact</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li class="nav_list"><h4>{{current_user.username}}</h4></li>
+                        <li class="nav_list"><button class="btn"><a style="text-decoration: none; color: white;" href="{{ url_for('logout' ) }}">Log Out</a></button></li>
+                        {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                            <li class="nav_list"><a href="{{ url_for('admin') }}" class="nav_link">Admin</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li class="nav_list"><button class="btn"><a href="{{ url_for('register') }}" style="text-decoration: none; color: white;">Register</a></button></li>
+                        <li class="nav_list"><button class="btn"><a style="text-decoration: none; color: white;" href="{{ url_for('login' ) }}">Login</a></button></li>
+                    {% endif %}
+                </ul>
+                <div class="menu_btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+        
+    {% endblock %}
+
+    {% for messages in get_flashed_messages() %}
+        <div class="alert alert-{{category}} alert-dismissible fade show"
+        role="alert">
+        {{messages}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"
+        aria-label="Close"></button>
+        </div>
+        {% endfor %}
+
+    <!-- footer -->
+    <footer class="footer"  style="width: 100%;">
+        <div class="container" style="display: flex; flex-direction: column; justify-content: space-between; width: 100%;">
+            <div class="top">
+                <div class="logo-container">
+                    <img style="width: 60px; height: 60px; " src="{{ url_for('static', filename='images/logo.PNG') }}" alt="logo" class="logo">
+                    <h2>JobElevate</h2>
+                </div>
+                <div class="social_icons">
+                    <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-behance"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
+                </div>
+            </div>
+            <div class="bottom">
+                <div>
+                    <h3 style="text-align: left;">Project</h3>
+                    <a href="#">Changelog</a>
+                    <a href="#">Status</a>
+                    <a href="#">License</a>
+                    <a href="#">All Versions</a>
+                </div>
+                <div>
+                    <h3 style="text-align: left;">Community</h3>
+                    <a href="#">Github</a>
+                    <a href="#">Linkedin</a>
+                    <a href="#">Twitter</a>
+                </div>
+                <div>
+                    <h3 style="text-align: left;">Help</h3>
+                    <a href="#">Support</a>
+                    <a href="#">Troubleshooting</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div>
+                    <h3 style="text-align: left;">Others</h3>
+                    <a href="#">Terms of Services</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">License</a>
+                    <a href="#">Review</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JobElevate. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+     
+</body>
+</html>

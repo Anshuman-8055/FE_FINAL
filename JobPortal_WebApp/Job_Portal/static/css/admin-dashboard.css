@@ -1,0 +1,64 @@
+/* Admin Dashboard Navbar Styles */
+.site-navbar .site-navigation .site-menu > li > a {
+    color: #000 !important;
+    background: rgba(255,255,255,0.85) !important;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin: 0 4px;
+    transition: background 0.2s;
+}
+
+.site-navbar .site-navigation .site-menu > li > a:hover {
+    color: #000 !important;
+    background: #ffe082 !important;
+    opacity: 1;
+}
+
+.site-navbar .site-navigation .site-menu .has-children .dropdown a {
+    color: #000 !important;
+}
+
+.site-navbar .site-navigation .site-menu .has-children .dropdown a:hover {
+    color: #000 !important;
+    opacity: 0.8;
+}
+
+.site-navbar .site-logo a {
+    color: #000 !important;
+}
+
+/* Style for active/current page link */
+.site-navbar .site-navigation .site-menu > li.active > a {
+    color: #000 !important;
+    font-weight: bold;
+}
+
+/* Style for dropdown menu items */
+.site-navbar .site-navigation .site-menu .has-children .dropdown {
+    border-top-color: #000;
+}
+
+/* Style for mobile menu */
+.site-mobile-menu .site-nav-wrap a {
+    color: #000 !important;
+}
+
+.site-mobile-menu .site-nav-wrap a:hover {
+    color: #000 !important;
+    opacity: 0.8;
+}
+
+.site-navbar {
+    background: red !important;
+    border: 5px solid blue !important;
+    opacity: 1 !important;
+    z-index: 9999 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+body {
+    padding-top: 80px !important;
+} 

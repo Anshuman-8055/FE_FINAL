@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Apply for {{ job.title }}{% endblock %}
+
+{% block content %}
+<section class="section-hero overlay inner-page bg-image" style="background-image: url('{% static 'images/hero_1.jpg' %}');" id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">Apply for {{ job.title }}</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="{% url 'jobapp:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                    <a href="{% url 'jobapp:job-list' %}">Jobs</a> <span class="mx-2 slash">/</span>
+                    <a href="{% url 'jobapp:single-job' id=job.id %}">{{ job.title }}</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>Apply</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+        {% include 'messages.html' %}
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h4 class="mb-0">Application Form</h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-2">Job Details</h5>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="border p-2 d-inline-block mr-3 rounded">
+                                    <img src="{% static 'images/job_logo_2.jpg' %}" alt="Company Logo" class="img-fluid" style="width: 60px;">
+                                </div>
+                                <div>
+                                    <h6 class="mb-1">{{ job.company_name }}</h6>
+                                    <p class="text-muted mb-0">{{ job.location }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            {{ form.job }}
+                            
+                            <div class="mb-4">
+                                <label for="{{ form.cover_letter.id_for_label }}" class="form-label fw-bold">Cover Letter</label>
+                                <div class="form-text mb-2">Tell us why you're the perfect candidate for this position</div>
+                                {{ form.cover_letter }}
+                                {% if form.cover_letter.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.cover_letter.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="{{ form.resume.id_for_label }}" class="form-label fw-bold">Resume</label>
+                                <div class="form-text mb-2">Upload your resume in PDF or DOC format (Max size: 5MB)</div>
+                                <div class="input-group">
+                                    {{ form.resume }}
+                                </div>
+                                {% if form.resume.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.resume.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="{{ form.experience.id_for_label }}" class="form-label fw-bold">Experience</label>
+                                <div class="form-text mb-2">Describe your relevant work experience</div>
+                                {{ form.experience }}
+                                {% if form.experience.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.experience.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="{{ form.skills.id_for_label }}" class="form-label fw-bold">Skills</label>
+                                <div class="form-text mb-2">List your relevant skills (separate with commas)</div>
+                                {{ form.skills }}
+                                {% if form.skills.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.skills.errors }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="d-grid gap-3">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="icon-paper-plane mr-2"></i>Submit Application
+                                </button>
+                                <a href="{% url 'jobapp:single-job' id=job.id %}" class="btn btn-outline-secondary">
+                                    <i class="icon-arrow-left mr-2"></i>Back to Job
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Base Styles */
+    .site-section {
+        padding: 4rem 0;
+        background-color: #f8f9fa;
+    }
+
+    /* Card Styles */
+    .card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+        border-radius: 1rem 1rem 0 0 !important;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        padding: 1.5rem;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    /* Form Styles */
+    .form-control, .form-select {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.15);
+        background-color: #fff;
+    }
+
+    .form-control::placeholder {
+        color: #adb5bd;
+    }
+
+    /* Textarea Specific Styles */
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+        line-height: 1.6;
+        padding: 1rem;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: #fff;
+        border: 2px solid #e9ecef;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+    }
+
+    textarea.form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.15), 
+                    inset 0 1px 2px rgba(0, 0, 0, 0.075);
+        background-color: #fff;
+    }
+
+    textarea.form-control::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    textarea.form-control::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    textarea.form-control::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+    }
+
+    textarea.form-control::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+
+    /* Input Group Styles */
+    .input-group {
+        border: 2px solid #e9ecef;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .input-group:focus-within {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.15);
+    }
+
+    .input-group input[type="file"] {
+        padding: 0.75rem 1rem;
+        border: none;
+        background-color: transparent;
+    }
+
+    /* Label Styles */
+    .form-label {
+        color: #495057;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-text {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+    /* Button Styles */
+    .btn {
+        border-radius: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 8px rgba(0, 123, 255, 0.3);
+    }
+
+    .btn-outline-secondary {
+        border: 2px solid #6c757d;
+        color: #6c757d;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: #fff;
+        border-color: #6c757d;
+    }
+
+    /* Job Details Section */
+    .job-details {
+        background-color: #f8f9fa;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .job-details h5 {
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .company-logo {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        padding: 0.5rem;
+        background-color: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Error Styles */
+    .invalid-feedback {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+        }
+    }
+</style>
+{% endblock %} 

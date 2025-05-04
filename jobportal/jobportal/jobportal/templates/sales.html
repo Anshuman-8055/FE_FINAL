@@ -1,0 +1,349 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Listings</title>
+    
+     <style>
+         a{
+            text-decoration: none;
+            color: #333;
+        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+/* Filters Section */
+.filters {
+    width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters h3, .filters h4 {
+    margin-bottom: 10px;
+}
+
+.filters label {
+    display: block;
+    margin: 5px 0;
+}
+
+/* Job Listings */
+.job-listings {
+    flex: 1;
+    margin-left: 20px;
+}
+
+/* Job Card */
+.job-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Job Card Header */
+.job-header {
+    display: flex;
+    justify-content: space-between; /* Moves elements to both sides */
+    align-items: center;
+}
+
+.company-logo {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+.job-card h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.company {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Icons & Details */
+.job-details {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.job-details span {
+    display: inline-block;
+    margin-right: 10px;
+    color: #666;
+}
+
+/* Skills & Tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tags span {
+    background: #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Footer */
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+.save-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+     </style>
+</head>
+<body>
+    <div class="container" style="margin: 10%;">
+        <aside class="filters">
+            <h3>All Filters</h3>
+            <h4>Department</h4>
+            <label><input type="checkbox" checked>Sales & Business Development </label>
+            <label><input type="checkbox" checked>Customer Success,Service</label>
+            <label><input type="checkbox" checked> Finance & Accounting</label>
+            <h4>Experience</h4>
+            <input type="range" min="0" max="20" value="0">
+            <h4>Salary</h4>
+            <label><input type="checkbox"> 0-3 Lakhs</label>
+            <label><input type="checkbox"> 3-6 Lakhs</label>
+            <label><input type="checkbox"> 6-10 Lakhs</label>
+            <label><input type="checkbox"> 10-15 Lakhs</label>
+            <h4>Location</h4>
+            <label><input type="checkbox">Bengaluru</label>
+            <label><input type="checkbox">Hyderabad</label>
+            <label><input type="checkbox">Chennai</label>
+            <label><input type="checkbox">Delhi/NCR</label>
+            <h4>Company Type</h4>
+            <label><input type="checkbox">Foreign MNC</label>
+            <label><input type="checkbox">Corporate</label>
+            <label><input type="checkbox">Indian MNC</label>
+            <label><input type="checkbox">Startup</label>
+            <h4>Work mode</h4>
+            <label><input type="checkbox">Work from office</label>
+            <label><input type="checkbox">Hybrid</label>
+            <label><input type="checkbox">Remote</label>
+            <label><input type="checkbox">Temp. WFH due to..</label>
+
+        </aside>
+
+        <main class="job-listings">
+            
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('sales1' ) }}">
+                        Executive Sales & Business Development</h2></a>
+                        <p class="company"><strong>Evolute Group</strong> <span class="rating">⭐ 3.0</span> <span class="reviews">49 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/citius.jpeg') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-1 Yrs | 💰 3.5-5 Lacs PA | 📍 Kochi,Mumbai</p>
+                    <p>📄 Reporting to Regional sales manager and performing additional duties</p>
+                    <p class="tags">
+                        <span>OEM Sales</span>
+                        <span>Semiconductor</span>
+                        <span>Electronic Components</span>
+                        <span>Electronics</span>
+                        <span>Sales executive</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Day Ago</p>
+                    
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('sales2' ) }}">
+                        Customer Sales Executive- Business Loans</h2></a>
+                        <p class="company"><strong>Tata Capital</strong> <span class="rating">⭐ 4.1</span> <span class="reviews">2505 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tata.PNG') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-5 Yrs | 💰 Not disclosed | 📍Kolkata,Mumbai</p>
+                    <p>📄 Under Graduate/Graduate in any discipline..</p>
+                    <p class="tags">
+                        <span>Supervisor</span>
+                        <span>Loans</span>
+                        <span>Compilance</span>
+                        <span>Customer Sales Executive</span>
+                        <span>Vendor</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 Few hours Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Senior Sales Manager </h2>
+                        <p class="company"><strong>IndiaMART</strong> <span class="rating">⭐ 3.6</span> <span class="reviews">4696 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/jio.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-2 Yrs | 💰 3-3.75 Lacs PA | 📍Tiruppur,Coimbatore</p>
+                    <p>📄 At least 12 months of relevant sales experience;MBA or B Tech....</p>
+                    <p class="tags">
+                        <span>sales</span>
+                        <span>Client Coordination</span>
+                        <span>Client Acquisition</span>
+                        <span>Field Sales</span>
+                        <span>Client Relationship</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 4 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Sales Manager</h2>
+                        <p class="company"><strong>Genxhire</strong></p>
+                        <p class="company"><strong>Posted by Genxhire Services</strong></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/acc.PNG') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-5 Yrs | 💰 7-12 Lacs PA | 📍Mumbai</p>
+                    <p>📄 Ensure smooth registration, training,cerification C commission disbursal</p>
+                    <p class="tags">
+                        <span>Sales</span>
+                        <span>B2C Sales</span>
+                        <span>Sales and Marketing</span>
+                        <span>Business Development</span>
+                        <span>Real Estate Sales</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Day Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Senior Sales Executive</h2>
+                        <p class="company"><strong>Nestle</strong> <span class="rating">⭐ 4.0</span> <span class="reviews">2277 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/n.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-4 Yrs | 💰 Not disclosed | 📍Gurugram</p>
+                    <p>📄 Custodian of Nestle business in the assigned territory. </p>
+                    <p class="tags">
+                        <span>sales executive activities</span>
+                        <span>trade</span>
+                        <span>secondary sales</span>
+                        <span>sales</span>
+                        <span>consumer</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 Few hours Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Sales Trainee/Executive/Sr. Executive</h2>
+                        <p class="company"><strong>MALABAR GOLD & DIAMONDS</strong> <span class="rating">⭐ 4.1</span> <span class="reviews">602 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/mala.jpeg') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 17 Feb- 18 Feb | 💰 2.25-5 Lacs PA | 📍Ernakulam</p>
+                    <p>📄 Hiring Freshers & Experienced Canditates  </p>
+                    <p class="tags">
+                        <span>Communication Skills</span>
+                        <span>Presentation Skills</span>
+                        <span>Sales</span>
+                        <span>Convincing Power</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 Walk-in  1 Day Ago</p>
+                    
+                </div>
+            </div>
+           
+        </main>
+    </div>
+</body>
+</html>
+{% endblock %}

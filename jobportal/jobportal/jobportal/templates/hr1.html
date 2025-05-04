@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card" style="margin: 10%;">
+        <h1>HR Service Delivery New Associate
+        </h1>
+        <p>Accenture</p>
+        <p class="info"><strong>Experience:</strong> 0-1 years</p>
+        <p class="info"><strong>Salary:</strong> Not disclosed</p>
+        <p class="info"><strong>Location:</strong>Bengaluru</p>
+        <p class="info"><strong>Posted:</strong> 3 days ago</p>
+        <p class="info"><strong>Openings:</strong> 1</p>
+        <p class="info"><strong>Applicants:</strong> 224</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p>Skill required: Employee Services - Employee and Labor Relations <br>
+            Designation: HR Service Delivery New Associate
+            Qualifications:Any Graduation <br>
+            Years of Experience:0 to 1 years <br><br>
+            What would you do? <br>
+            Mandatory skillsStrong customer orientation Resilient and able to work under pressure Attention to detail & quality driven – in communications and all system transactionsStrong communications skills (Written & Verbal)Problem solving skillsTeam Work & collaboration Willing to work in flexible shifts & in weekendsVersant score should be 62Passing the psychometric test a mustWork from office - MandatoryEmployee Services - More into query/case managementEmployment and Labor Law encompasses the relationships among unions, employers, and employees. Labor laws grant employees in certain sectors the right to unionize and allow employers and employees to engage in certain workplace-related activities in order to further their demands for changes in the employer-employee relationship. Employment law, on the other hand, is defined more broadly as the negotiated relationships between employers and employees.</p>
+
+
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role:Manager - HR Generalist</strong></p>
+        
+        <p><strong>Industry Type: </strong>IT Services & Consulting</p>
+        
+        <p><strong>Department: </strong>Human Resources</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>Accenture is a global professional services company with leading capabilities in digital, cloud and security. Combining unmatched experience and specialized skills across more than 40 industries, we offer Strategy and Consulting, Interactive, Technology and Operations services—all powered by the world’s largest network of Advanced Technology and Intelligent Operations centers. Our 514,000 people deliver on the promise of technology and human ingenuity every day, serving clients in more than 120 countries. We embrace the power of change to create value and shared success for our clients, people, shareholders, partners and communities. <br><br>
+            Company Info <br>
+            Address:
+            Plant 3,Godrej and Boyce Compound LBS Marg, Vikhroli (W) , MUMBAI, Maharashtra, India</p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

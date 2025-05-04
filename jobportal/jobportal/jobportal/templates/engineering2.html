@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card" >
+        <h1>Installer
+        </h1>
+        <p>Kone</p>
+        <p class="info"><strong>Experience:</strong> 0-5 years</p>
+        <p class="info"><strong>Salary:</strong> Not disclosed</p>
+        <p class="info"><strong>Location:</strong>
+           Hyderabad, Pune, Bengaluru</p>
+        <p class="info"><strong>Posted:</strong> 2 days ago</p>
+        <p class="info"><strong>Openings:</strong> 1</p>
+        <p class="info"><strong>Applicants:</strong> 31</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p>KONE is committed to creating a better workplace, demonstrated through our excellent people practices. We prioritize fostering a positive work culture that encourages collaboration, diversity, growth, and well-being, while maintaining the highest standards of quality and efficiency.
+
+            As KONE India embarks on an exciting growth phase with a direct presence in seven regions, we are looking for Installers with a service-oriented mindset to join our team. These roles will be based across Hyderabad, Bangalore, Chennai, Ernakulam, Coimbatore & Vijayawada supporting our expansion plans.</p>
+            <p>Customer Relationship Management
+
+                Oversee the installation environment during activities and manage on-site communication with customers regarding day-to-day installation and logistical matters.</p>
+
+
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role:Manager - Electrician</strong></p>
+        
+        <p><strong>Industry Type: </strong>Engineering & Construction</p>
+        
+        <p><strong>Department: </strong>Production, Manufacturing & Engineering</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>We are a global leader in the elevator and escalator industry, and our job is to make the world's cities better places to live. KONE provides elevators, escalators and automatic building doors, as well as solutions for maintenance and modernization, which add value to the life cycle of any building. <br><br>
+
+            Through more effective People Flow®, we make people€™s journeys safe, convenient and reliable, in taller, smarter buildings. We move 1 billion people everyday by embracing in innovative technologies and agile ways of working. Our solutions make urban life safe and accessible, connecting us with our loved ones. Together with our partners and customers around the world, we help cities to become better places to live in. A clear vision, purpose and transparency drives our passion to go the extra mile. <br><br>
+            
+            KONE has annual net sales of over EUR 9 billion and over 60,000 employees world-wide. KONE class B shares are listed on the Nasdaq Helsinki Ltd. in Finland. <br>
+            
+            Explore our Global Job Opportunities: https://bit.ly/3pTXVao <br>
+            Explore our India Job Opportunities: https://www.kone.in/about-us/careers/</p>
+        
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

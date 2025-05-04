@@ -1,0 +1,93 @@
+{% extends 'base.html' %} 
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card" >
+        <h1>Recruiter Intern</h1>
+        <p>Wipro</p>
+        <p class="info"><strong>Experience:</strong> 6 Months</p>
+        <p class="info"><strong>Salary:</strong>  5,000/months</p>
+        <p class="info"><strong>Location:</strong> 📍Remote </p>
+        <p class="info"><strong>Posted:</strong> 🕒1 day Ago</p>
+        <p class="info"><strong>Openings:</strong> 1</p>
+        <p class="info"><strong>Applicants:</strong> 50</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p> Assist in the creation and optimization of job descriptions and job postings.
+            Source potential candidates through various channels, including online platforms, social media, and job fairs.
+            Conduct initial screenings of resumes and applications to identify potential candidates.
+            Coordinate and schedule interviews between candidates and hiring managers
+            Maintain the applicant tracking system and ensure all candidate information is accurately documented.
+            Support the recruitment team in various administrative tasks as needed.
+            Help in the development and implementation of innovative recruitment strategies.
+            </p>
+        
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role: </strong>Non IT Recruiter</p>
+        
+        <p><strong>Industry Type: </strong> Courier / Logistics </p>
+        
+        <p><strong>Department: </strong> Human Resources</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>Grow Simplee is a network of technologically integrated fulfilment centres & shipping partners to achieve Next Day Delivery in India for ecommerce brands.
+            
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

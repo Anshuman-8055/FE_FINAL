@@ -1,0 +1,405 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Listings</title>
+    
+     <style>
+        a{
+            text-decoration: none;
+            color: #333;
+        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+/* Filters Section */
+.filters {
+    width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters h3, .filters h4 {
+    margin-bottom: 10px;
+}
+
+.filters label {
+    display: block;
+    margin: 5px 0;
+}
+
+/* Job Listings */
+.job-listings {
+    flex: 1;
+    margin-left: 20px;
+}
+
+/* Job Card */
+.job-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Job Card Header */
+.job-header {
+    display: flex;
+    justify-content: space-between; /* Moves elements to both sides */
+    align-items: center;
+}
+
+.company-logo {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+.job-card h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.company {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Icons & Details */
+.job-details {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.job-details span {
+    display: inline-block;
+    margin-right: 10px;
+    color: #666;
+}
+
+/* Skills & Tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tags span {
+    background: #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Footer */
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+.save-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+     </style>
+</head>
+<body>
+    <div class="container" style="margin: 10%;">
+        <aside class="filters">
+            <h3>All Filters</h3>
+            <h4>Department</h4>
+            <label><input type="checkbox" checked> Engineering - Hardware</label>
+            <label><input type="checkbox" checked> Engineering - Software</label>
+            <label><input type="checkbox" checked> IT & Information Services</label>
+            <h4>Experience</h4>
+            <input type="range" min="0" max="20" value="0">
+            <h4>Salary</h4>
+            <label><input type="checkbox"> 0-3 Lakhs</label>
+            <label><input type="checkbox"> 3-6 Lakhs</label>
+            <label><input type="checkbox"> 6-10 Lakhs</label>
+            <label><input type="checkbox"> 10-15 Lakhs</label>
+            <h4>Location</h4>
+            <label><input type="checkbox">Bengaluru</label>
+            <label><input type="checkbox">Hyderabad</label>
+            <label><input type="checkbox">Pune</label>
+            <label><input type="checkbox">Delhi/NCR</label>
+            <h4>Company Type</h4>
+            <label><input type="checkbox">Foreign MNC</label>
+            <label><input type="checkbox">Corporate</label>
+            <label><input type="checkbox">Indian MNC</label>
+            <label><input type="checkbox">Startup</label>
+            <h4>Work mode</h4>
+            <label><input type="checkbox">Work from office</label>
+            <label><input type="checkbox">Hybrid</label>
+            <label><input type="checkbox">Remote</label>
+            <label><input type="checkbox">Temp. WFH due to..</label>
+
+        </aside>
+
+        <main class="job-listings">
+            
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title" >
+                        <h2>
+                            <a href="{{ url_for('it1' ) }}">Full Stack Developer</a></h2>
+                        <p class="company"><strong>Tesla</strong> <span class="rating">⭐ 3.7</span> <span class="reviews">5154 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-2 Yrs | 💰 Not disclosed | 📍 Kolkata, Mumbai, N...</p>
+                    <p>📄 Provide support to internal users of Oracle Applications and legacy applications.</p>
+                    <p class="tags">
+                        <span>Training</span>
+                        <span>Oracle Apps</span>
+                        <span>Usage</span>
+                        <span>Infrastructure</span>
+                        <span>Manager Technology</span>
+                        <span>Analyst 1</span>
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 3 Days Ago</p>
+                    
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <a href="{{ url_for('it2' ) }}">
+                        <h2>Hiring Freshers | Servrice Desk Analyst</h2>
+                        <p class="company"><strong>Tesla</strong> <span class="rating">⭐ 3.7</span> <span class="reviews">52080 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div></a>
+            
+                <div class="job-details">
+                    <p>📅 0 Yrs | 💰 Not disclosed | 📍Bengaluru(Kodathi)</p>
+                    <p>📄 Shifts:24*7 (5 days of work from office). ----------------------------------------------------------------</p>
+                    <p class="tags">
+                        <span>Communication Skills</span>
+                        <span>English</span>
+                        <span>Technical Support</span>
+                        <span>Computer Skills</span>
+                        <span>Spoken</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Urgent opening For Site Reliability Engineer- Azure</h2>
+                        <p class="company"><strong>Tesla</strong> <span class="rating">⭐ 3.9</span> <span class="reviews">38942 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 4-9 Yrs | 💰 5.5-13 Lacs PA | 📍Gurugram,Bengaluru</p>
+                    <p>📄 Minimum 4 years of experience in SRE role with strong knowledge of Azure...</p>
+                    <p class="tags">
+                        <span>Reliability Engineering</span>
+                        <span>Site Reliability Engineering</span>
+                        <span>Azure Devops</span>
+                        <span>Azure</span>
+                        <span>SRE</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 4 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Software Engr</h2>
+                        <p class="company"><strong>Tesla</strong> <span class="rating">⭐ 3.8</span> <span class="reviews">1315 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-5 Yrs | 💰 Not disclosed | 📍Greater Noida,Bengaluru</p>
+                    <p>📄 Proficient in front-end technologies (HTML,CSS 3,Bootstrap 4 /5,JavaScript...</p>
+                    <p class="tags">
+                        <span>Application design</span>
+                        <span>Front end</span>
+                        <span>NoSQL</span>
+                        <span>Aerospace</span>
+                        <span>Software Engineer</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Technical Lead - Angular+Node+Typescript Mumbai & Banglore</h2>
+                        <p class="company"><strong>Tesla</strong> <span class="rating">⭐ 3.4</span> <span class="reviews">1618 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 5-10 Yrs | 💰 Not disclosed | 📍Mumbai,Pune,Bengaluru</p>
+                    <p>📄 Please find details and minimum 05 to 09 years experience is </p>
+                    <p class="tags">
+                        <span>Application design</span>
+                        <span>Front end</span>
+                        <span>NoSQL</span>
+                        <span>Aerospace</span>
+                        <span>Software Engineer</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Java + Selenium + BDD/Cucumber</h2>
+                        <p class="company"><strong>Tesla</strong> <span class="rating">⭐ 3.7</span> <span class="reviews">40803 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 4-9 Yrs | 💰 Not disclosed | 📍Hybrid- Pune,Chennai</p>
+                    <p>📄 Should have thorough technical,analytical and operational knowledge  </p>
+                    <p class="tags">
+                        <span>Automation Testing</span>
+                        <span>Selenium Java</span>
+                        <span>Bdd Cucumber</span>
+                        <span>Software testing</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Cognizant - Walk-in Interview For Angular Developer - 15th Feb Drive</h2>
+                        <p class="company"><strong>Cognizant</strong> <span class="rating">⭐ 3.8</span> <span class="reviews">49167 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 4-9 Yrs | 💰 Not disclosed | 📍Hybrid- Pune,Chennai</p>
+                    <p>📄 4 to 12 years of experience in Angular, HTML,CSS and JavaScript   </p>
+                    <p class="tags">
+                        <span>Angular</span>
+                        <span>CSS</span>
+                        <span>Javascript</span>
+                        <span>HTML</span>
+                        <span>Development</span>
+                        <span>Interviewing</span>
+                        <span>Drives</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Senior Engineer/ Engineer_ MLOPs_ 3 To 9yrs</h2>
+                        <p class="company"><strong>Fractal Analytics</strong> <span class="rating">⭐ 4.0</span> <span class="reviews">775 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 3-12 Yrs | 💰 Not disclosed | 📍Mumbai,Pune,Chennai,Gurugram,Bengaluru</p>
+                    <p>📄 Build the knowledge base required to deliver increasingly complex MLOPS   </p>
+                    <p class="tags">
+                        <span>Cloud Computing</span>
+                        <span>C++</span>
+                        <span>Automation</span>
+                        <span>Project Management</span>
+                        <span>System Integration</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 4 Days Ago</p>
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Posting - Unifybrains Infotech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card {
+            width: 80%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .info strong {
+            color: #333;
+        }
+        
+    </style>
+</head>
+<body>
+    <div style="margin: 10%;">
+    <div class="card" >
+        <h1>Systems Analyst 1-IT</h1>
+        <p>Oracle</p>
+        <p class="info"><strong>Experience:</strong> 0 - 2 years</p>
+        <p class="info"><strong>Salary:</strong> Not Disclosed</p>
+        <p class="info"><strong>Location:</strong> Kolkata, Mumbai, New Delhi, Hyderabad, Pune, Chennai, Bengaluru</p>
+        <p class="info"><strong>Posted:</strong> 5 days  ago</p>
+        <p class="info"><strong>Openings:</strong> 1</p>
+        <p class="info"><strong>Applicants:</strong> 665</p>
+    </div>
+
+    <div class="card">
+        <h3>Job Description</h3>
+        <p> Work with Oracles world class technology to develop, implement, and support Oracles global infrastructure.
+            Career Level - IC</p>
+
+        <ul>
+            <li>Provide support to internal users of Oracle Applications and legacy applications and ensure maximum efficiency in the use of those applications</li>
+            <li>Respond to requests for support by users</li>
+            <li>Test and coordinate testing of new releases of Oracle Applications</li>
+            <li>Log bugs against applications and follow up with IT and Development</li>
+            <li>Monitor future applications releases</li>
+            <li>Train users on features of applications</li>
+            <li>Maintain applications responsibilities based on work group of user</li>
+            <li>ct as reporting resource</li>
+        </ul>  
+
+    </div>
+
+    <div class="card">
+        
+        <p><strong>Role:Test Analyst</strong></p>
+        
+        <p><strong>Industry Type: </strong>IT Services & Consulting</p>
+        
+        <p><strong>Department: </strong>Engineering - Software & QA</p>
+        
+        <p><strong>Employment Type: </strong>Full Time, Permanent</p>
+    </div>
+
+    <div class="card">
+        <h3>About Company</h3>
+        <p>Oracle is the cloud leader for global business. Present in over 175 countries, we’re one of the biggest technology companies on the planet. With a fully integrated suite of cloud applications and infrastructure with global reach, we’re uniquely placed to transform businesses, empower governments, and energize nonprofits.
+            Join us and you’ll drive meaningful change, work with innovative people, and shape the solutions that are making the world a better place. We put your potential in your hands with self-directed training, mentoring, and on-the-job learning. Share your aspirations and we’ll help you realize them.
+            Diversity and inclusion are part of everything we do. We thrive on the rich experiences and perspectives our people bring and so will you. We want you to ask questions, challenge how things are done, and innovate fearlessly. In return, you’ll get all the flexibility you need to bring your best self to your work.</p>
+    </div>
+
+    <div class="card">
+        <h3>Beware of Imposters!</h3>
+        <p>Naukri.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee</p>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

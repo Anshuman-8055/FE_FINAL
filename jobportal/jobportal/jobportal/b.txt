@@ -1,0 +1,89 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+# Sample job data
+jobs = [
+    {
+        "id": 1,
+        "title": "Systems Analyst 1-IT",
+        "company": "Oracle",
+        "experience": "0-2",
+        "salary": "Not disclosed",
+        "location": "Kolkata, Mumbai",
+        "tags": ["Training", "Oracle Apps", "Usage"],
+        "rating": 3.7,
+        "reviews": 5154,
+        "description": "Provide support to internal users of Oracle Applications and legacy applications.",
+        "posted_date": "3 Days Ago"
+    },
+    {
+        "id": 2,
+        "title": "Hiring Freshers | Service Desk Analyst",
+        "company": "Wipro",
+        "experience": "0",
+        "salary": "Not disclosed",
+        "location": "Bengaluru",
+        "tags": ["Communication Skills", "English"],
+        "rating": 3.7,
+        "reviews": 52080,
+        "description": "Shifts: 24*7 (5 days of work from office).",
+        "posted_date": "1 Day Ago"
+    },
+    {
+        "id": 3,
+        "title": "Urgent opening For Site Reliability Engineer- Azure",
+        "company": "HDFC Bank",
+        "experience": "4-9",
+        "salary": "5.5-13 Lacs PA",
+        "location": "Gurugram, Bengaluru",
+        "tags": ["Reliability Engineering", "Azure DevOps"],
+        "rating": 3.9,
+        "reviews": 38942,
+        "description": "Minimum 4 years of experience in SRE role with strong knowledge of Azure.",
+        "posted_date": "4 Days Ago"
+    },
+    # Add more job entries as needed
+]
+
+@app.route("/", methods=["GET"])
+def home():
+    # Get filter parameters from the request
+    experience = request.args.get("experience", type=int)
+    locations = request.args.getlist("location")
+    salaries = request.args.getlist("salary")
+    departments = request.args.getlist("department")
+    company_types = request.args.getlist("company_type")
+    work_modes = request.args.getlist("work_mode")
+
+    # Start with all jobs
+    filtered_jobs = jobs
+
+    # Apply filters if provided
+    if experience is not None:
+        filtered_jobs = [job for job in filtered_jobs if int(job["experience"].split('-')[0]) <= experience]
+
+    if locations:
+        filtered_jobs = [job for job in filtered_jobs if job["location"] in locations]
+
+    if salaries:
+        # Example: Implement salary filtering logic if needed
+        # This is a placeholder; you can implement your own logic based on salary ranges
+        pass
+
+    if departments:
+        # Example: Implement department filtering logic if needed
+        pass
+
+    if company_types:
+        # Example: Implement company type filtering logic if needed
+        pass
+
+    if work_modes:
+        # Example: Implement work mode filtering logic if needed
+        pass
+
+    return render_template("index.html", jobs=filtered_jobs)
+
+if __name__ == "__main__":
+    app.run(debug=True)

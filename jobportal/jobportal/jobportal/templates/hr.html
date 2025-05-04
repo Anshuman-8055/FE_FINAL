@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+{% block content %}
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Listings</title>
+<style>
+     a{
+            text-decoration: none;
+            color: #333;
+        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+/* Filters Section */
+.filters {
+    width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filters h3, .filters h4 {
+    margin-bottom: 10px;
+}
+
+.filters label {
+    display: block;
+    margin: 5px 0;
+}
+
+/* Job Listings */
+.job-listings {
+    flex: 1;
+    margin-left: 20px;
+}
+
+/* Job Card */
+.job-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Job Card Header */
+.job-header {
+    display: flex;
+    justify-content: space-between; /* Moves elements to both sides */
+    align-items: center;
+}
+
+.company-logo {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+.job-card h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.company {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Icons & Details */
+.job-details {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.job-details span {
+    display: inline-block;
+    margin-right: 10px;
+    color: #666;
+}
+
+/* Skills & Tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tags span {
+    background: #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Footer */
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+.save-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+     </style>
+</head>
+<body>
+    <div class="container" style="margin: 10%;">
+        <aside class="filters">
+            <h3>All Filters</h3>
+            <h4>Department</h4>
+            <label><input type="checkbox" checked>Human Resources </label>
+            <label><input type="checkbox" checked>Sales & Business Development</label>
+            <label><input type="checkbox" checked>Customer Success,Service</label>
+            <h4>Experience</h4>
+            <input type="range" min="0" max="20" value="0">
+            <h4>Salary</h4>
+            <label><input type="checkbox"> 0-3 Lakhs</label>
+            <label><input type="checkbox"> 3-6 Lakhs</label>
+            <label><input type="checkbox"> 6-10 Lakhs</label>
+            <label><input type="checkbox"> 10-15 Lakhs</label>
+            <h4>Location</h4>
+            <label><input type="checkbox">Bengaluru</label>
+            <label><input type="checkbox">Hyderabad</label>
+            <label><input type="checkbox">Chennai</label>
+            <label><input type="checkbox">Delhi/NCR</label>
+            <h4>Company Type</h4>
+            <label><input type="checkbox">Foreign MNC</label>
+            <label><input type="checkbox">Corporate</label>
+            <label><input type="checkbox">Indian MNC</label>
+            <label><input type="checkbox">Startup</label>
+            <h4>Work mode</h4>
+            <label><input type="checkbox">Work from office</label>
+            <label><input type="checkbox">Hybrid</label>
+            <label><input type="checkbox">Remote</label>
+            <label><input type="checkbox">Temp. WFH due to..</label>
+
+        </aside>
+
+        <main class="job-listings">
+            
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('hr1' ) }}">
+                       HR Service Delivery New Associate</h2></a>
+                        <p class="company"><strong>Accenture</strong><span class="rating">⭐ 3.8</span> <span class="reviews">55222 Reviews</span>  </p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/acc.PNG') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-1 Yrs | 💰 Not disclosed | 📍Bengaluru</p>
+                    <p>📄 Skill required: Employee Services: Employee Services</p>
+                    <p class="tags">
+                        <span>customer care</span>
+                        <span>presentation skills</span>
+                        <span>microsoft office suite</span>
+                        <span>service delivery</span>
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Day Ago</p>
+                    
+                </div>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('hr2' ) }}">
+                       Human Resources Executive </h2> </a>
+                        <p class="company"><strong>Marriott</strong> <span class="rating">⭐ 4.2</span> <span class="reviews">1237 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/ma.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+           
+                <div class="job-details">
+                    <p>📅 0-7 Yrs | 💰Not disclosed | 📍Panaji</p>
+                    <p>📄 License or Certification: None</p>
+                    <p class="tags">
+                        <span>Supervisor</span>
+                        <span>Training</span>
+                        <span>Scheduling</span>
+                        <span>HR</span>
+                        <span>Management</span>
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 day Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>HR Recruiter </h2>
+                        <p class="company"><strong>Globiva</strong> <span class="rating">⭐ 3.1</span> <span class="reviews">1459 Reviews</span></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/v.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-2 Yrs | 💰 50,000-2.75 Lacs PA | 📍Gurugram</p>
+                    <p>📄 Urgent Hiring for HR Executive</p>
+                    <p class="tags">
+                        <span>BPO Hiring</span>
+                        <span>End to End Recruitment</span>
+                        <span>Bpo Recruitment</span>
+                        <span>Sales Hiring</span>
+                       
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 Just Now</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Human Resources Coordinator</h2>
+                        <p class="company"><strong>Hilton Hotels</strong><span class="rating">⭐ 4.3</span> <span class="reviews">497 Reviews</span></p>
+                        
+                        
+                    </div>
+                    <img src="{{ url_for('static', filename='images/h.png') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-3 Yrs | 💰 Not disclosed | 📍Bengaluru</p>
+                    <p>📄 To successfully fill this role,you should maintain good working relation</p>
+                    <p class="tags">
+                        <span>vendor management</span>
+                        <span>risk management</span>
+                        <span>project management</span>
+                        <span>resource</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 4 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>HR Executive (BFSI)</h2>
+                        <p class="company"><strong>HR REMEDY INDIA PVT.LTD.</strong> </p>
+                        <p class="company"><strong>Posted by HR Remedy India</strong> </p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/i.PNG') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-1 Yrs | 💰 Not disclosed | 📍Mumbai,Nagpur</p>
+                    <p>📄 Bachelor's or Master's in Human Resources </p>
+                    <p class="tags">
+                        <span>Human Resource</span>
+                        <span>HR support</span>
+                        <span>Employee Records Managent</span>
+                        <span>Talent</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 2 Days Ago</p>
+                    
+                </div>
+            </div>
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2>Hr Executive and Recruiter</h2>
+                        <p class="company"><strong>Synmac Consultants</strong><span class="rating">⭐ 4.1</span> <span class="reviews">140 Reviews</span> </p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/sy.jpeg') }}" alt="Oracle Logo" class="company-logo">
+                </div>
+            
+                <div class="job-details">
+                    <p>📅 0-2 Yrs | 💰 1-2 lacs PA | 📍New Delhi</p>
+                    <p>📄 Responsible to screen candidates resumes and job applications</p>
+                    <p class="tags">
+                        <span>Training</span>
+                        <span>Payroll Processing</span>
+                        <span>Recruitment</span>
+                        <span>Labour Laws</span>
+                        
+                        
+                    </p>
+                </div>
+            
+                <div class="job-footer">
+                    <p>🕒 1 Day Ago</p>
+                    
+                </div>
+            </div>
+           
+        </main>
+    </div>
+</body>
+</html>
+{% endblock %}

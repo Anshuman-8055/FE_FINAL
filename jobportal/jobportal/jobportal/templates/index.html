@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Document</title>
+</head>
+<body>
+     <!-- Header -->
+     <nav class="navbar">
+        <div class="container">
+            <div class="nav_wrapper">
+                <a href="{{ url_for('home' ) }}" class="logo">
+                    <img style="width: 80px; height: 60px; padding-left: 20px;" src="{{ url_for('static', filename='images/logo.PNG') }}" alt="logo">
+                    <h3 style="text-decoration: none; color: white; padding-right: 190px;"><a style="text-decoration: none; color: white; font-size: 1.7rem;" href="{{ url_for('home' ) }}">JobElevate</a></h3>
+                </a>
+                <ul class="nav_menu">
+                    <li class="nav_list"><a href="#home" class="nav_link">Home</a></li>
+                    
+                    <li class="nav_list dropdown">
+                        <a href="" class="nav_link dropdown-btn">Jobs</a>
+                        <div id="x1" class="dropdown-content">
+                            <div class="category-container">
+                                <div class="category">Popular categories</div>
+                                <a href="{{ url_for('itjobs') }}">IT jobs</a>
+                                <a href="{{ url_for('sales') }}">Sales jobs</a>
+                                <a href="{{ url_for('marketing') }}">Marketing jobs</a>
+                                <a href="{{ url_for('data') }}">Data Science jobs</a>
+                                <a href="{{ url_for('hr') }}">HR jobs</a>
+                                <a href="{{ url_for('engineering') }}">Engineering jobs</a>
+                            </div>
+                            <div class="category-container">
+                                <div class="category">Jobs in demand</div>
+                                <a href="{{ url_for('fresher') }}">Fresher jobs</a>
+                                <a href="{{ url_for('mnc') }}">MNC jobs</a>
+                                <a href="{{ url_for('remote') }}">Remote jobs</a>
+                                <a href="{{ url_for('work') }}">Work from home jobs</a>
+                                <a href="{{ url_for('walk') }}">Walk-in jobs</a>
+                                <a href="{{ url_for('part') }}">Part-time jobs</a>
+                            </div>
+                            <div class="category-container">
+                                <div class="category">Jobs by location</div>
+                                <a href="{{ url_for('delhi' ) }}">Jobs in Delhi</a>
+                                <a href="{{ url_for('mumbai' ) }}">Jobs in Mumbai</a>
+                                <a href="{{ url_for('banglore' ) }}">Jobs in Bangalore</a>
+                                <a href="{{ url_for('hyderabad' ) }}">Jobs in Hyderabad</a>
+                                <a href="{{ url_for('chennai' ) }}">Jobs in Chennai</a>
+                                <a href="{{ url_for('pune' ) }}">Jobs in Pune</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav_list"><a href="/itjobs" class="nav_link">Join Us</a></li>
+                    <li class="nav_list"><a href="{{ url_for('about') }}" class="nav_link">About Us</a></li>
+                    <li class="nav_list"><a href="{{ url_for('contact') }}" class="nav_link">Contact</a></li>
+                    {% if current_user.is_authenticated %}
+                    <h4>{{current_user.username}}</h4>
+                    <li class="nav_list"><button class="btn"><a style="text-decoration: none; color: white;" href="{{ url_for('logout' ) }}">Log Out</a></button></li>
+                   {% else %}
+                     <li class="nav_list"><button class="btn"><a href="{{ url_for('register') }}" style="text-decoration: none; color: white;">Register</a></button></li>
+                     <li class="nav_list"><button class="btn"><a style="text-decoration: none; color: white;" href="{{ url_for('login' ) }}">Login</a></button></li>
+                    
+                   {% endif %}
+                </ul>
+                <div class="menu_btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="container">
+            <div class="hero_wrapper">
+                <div class="hero_info">
+                    <h1 class="hero_title">Find Your Dream Job – Start Searching Now!🔍</h1>
+                    <p class="hero_text">"Explore top job opportunities tailored for you. Start your journey to success with just one search! 🚀"</p>
+                    <div class="search">
+                        
+                        <a href="/itjobs" class="g_btn hero_btn">Search For IT Jobs</a>
+                    </div>
+                </div>
+                <div class="hero_img">
+                    <img src="{{ url_for('static', filename='images/hero.PNG') }}" alt="Hero image">
+                </div>
+            </div>
+        </div>
+    </header> 
+
+    
+    <!-- Top Companies Section -->
+    <section class="top-companies">
+        <div class="container">
+            <h2>Top Companies Hiring Now</h2>
+            <div class="companies-grid">
+                <div class="company-card animate-up">
+                    <img src="{{ url_for('static', filename='images/google.png') }}" alt="Google">
+                    <h3>Google</h3>
+                    <p>50+ open positions</p>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> Multiple Locations</span>
+                </div>
+                <div class="company-card animate-up">
+                    <img src="{{ url_for('static', filename='images/microsoft.png') }}" alt="Microsoft">
+                    <h3>Microsoft</h3>
+                    <p>35+ open positions</p>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> Multiple Locations</span>
+                </div>
+                <div class="company-card animate-up">
+                    <img src="{{ url_for('static', filename='images/amazon.webp') }}" alt="Amazon">
+                    <h3>Amazon</h3>
+                    <p>40+ open positions</p>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> Multiple Locations</span>
+                </div>
+                <div class="company-card animate-up">
+                    <img src="{{ url_for('static', filename='images/apple.png') }}" alt="Apple">
+                    <h3>Apple</h3>
+                    <p>25+ open positions</p>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> Multiple Locations</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discover Jobs Section -->
+    <section class="discover-jobs">
+        <div class="container">
+            <h2>Discover Jobs Across Popular Roles</h2>
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <div class="role-card">
+                        <i class="fas fa-code role-icon"></i>
+                        <h3>Software Development</h3>
+                        <p>2,500+ Jobs</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-chart-line role-icon"></i>
+                        <h3>Data Science</h3>
+                        <p>1,800+ Jobs</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-paint-brush role-icon"></i>
+                        <h3>UI/UX Design</h3>
+                        <p>1,200+ Jobs</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-bullhorn role-icon"></i>
+                        <h3>Digital Marketing</h3>
+                        <p>1,500+ Jobs</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-project-diagram role-icon"></i>
+                        <h3>Project Management</h3>
+                        <p>2,000+ Jobs</p>
+                    </div>
+                    <!-- Duplicate cards for infinite scroll -->
+                    <div class="role-card">
+                        <i class="fas fa-code role-icon"></i>
+                        <h3>Software Development</h3>
+                        <p>2,500+ Jobs</p>
+                    </div>
+                    <div class="role-card">
+                        <i class="fas fa-chart-line role-icon"></i>
+                        <h3>Data Science</h3>
+                        <p>1,800+ Jobs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Companies Section -->
+    <section class="featured-companies">
+        <div class="container">
+            <h2>Featured Companies Actively Hiring</h2>
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <div class="company-info">
+                        <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Tesla">
+                        <div class="info">
+                            <h3>Tesla</h3>
+                            <p>Technology • 10,000+ employees</p>
+                            <span class="rating">4.5 ★</span>
+                        </div>
+                    </div>
+                    <p class="description">Leading electric vehicle and clean energy company</p>
+                    <button class="view-jobs"><a style="text-decoration: none; color: white;" href="{{ url_for('tesla' ) }}">View Jobs</a></button>
+                </div>
+                <div class="featured-card">
+                    <div class="company-info">
+                        <img src="{{ url_for('static', filename='images/Meta.png') }}" alt="Meta">
+                        <div class="info">
+                            <h3>Meta</h3>
+                            <p>Technology • 15,000+ employees</p>
+                            <span class="rating">4.3 ★</span>  
+                            
+                        </div>
+                    </div>
+                    <p class="description">Social technology company building the metaverse</p>
+                    <a href="/itjobs"><button class="view-jobs"><a style="text-decoration: none; color: white;" href="{{ url_for('meta' ) }}">View Jobs</a></button></a>
+                </div>
+                <div class="featured-card">
+                    <div class="company-info">
+                        <img src="{{ url_for('static', filename='images/netflixx.jpg') }}" alt="Netflix">
+                        <div class="info">
+                            <h3>Netflix</h3>
+                            <p>Entertainment • 8,000+ employees</p>
+                            <span class="rating">4.4 ★</span>
+                        </div>
+                    </div>
+                    <p class="description">Leading streaming entertainment service</p>
+                    <button class="view-jobs">View Jobs</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Companies Section -->
+    <section class="trusted-companies">
+        <div class="container">
+            <h2>Trusted by World's Best Companies</h2>
+            <div class="marquee">
+                <div class="marquee-content">
+                    <div class="marquee-item"> <a style="text-decoration: none; " href="https://www.amazon.com/">
+                        <img src="{{ url_for('static', filename='images/amazon.webp') }}" alt="Company 1"></a>
+                    </div>
+                    <div class="marquee-item"><a href="https://www.apple.com/">
+                        <img src="{{ url_for('static', filename='images/apple.png') }}" alt="Company 2"></a>
+                    </div>
+                    <div class="marquee-item"><a href="https://wordpress.com/">
+                        <img src="{{ url_for('static', filename='images/wordpress.png') }}" alt="Company 3"></a>
+                    </div>
+                    <div class="marquee-item"><a href="https://www.uber.com/in/en/">
+                        <img src="{{ url_for('static', filename='images/uber.png') }}" alt="Company 4"></a>
+                    </div>
+                    <div class="marquee-item"><a href="https://www.microsoft.com/en-in/">
+                        <img src="{{ url_for('static', filename='images/microsoft.png') }}" alt="Company 5"></a>
+                    </div>
+                    <!-- Duplicate items for seamless loop -->
+                    <div class="marquee-item"><a href="https://www.apple.com/">
+                        <img src="{{ url_for('static', filename='images/apple.png') }}" alt="Company 1"></a>
+                    </div>
+                    <div class="marquee-item"><a href="https://wordpress.com/">
+                        <img src="{{ url_for('static', filename='images/wordpress.png') }}" alt="Company 2"></a>
+                    </div>
+                    <div class="marquee-item"><a href="https://www.apple.com/">
+                        <img src="{{ url_for('static', filename='images/apple.png') }}" alt="Company 4"></a>
+                    </div>
+                    <div class="marquee-item"><a href="https://www.tesla.com/">
+                        <img src="{{ url_for('static', filename='images/tesla.png') }}" alt="Company 3"></a>
+                    </div>
+                    <div class="marquee-item"><a href="https://www.uber.com/in/en/">
+                        <img src="{{ url_for('static', filename='images/uber.png') }}" alt="Company 5"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="top">
+                <div class="logo-container">
+                    <img style="width: 60px; height: 60px; " src="{{ url_for('static', filename='images/logo.PNG') }}" alt="logo" class="logo">
+                    <h2>JobElevate</h2>
+                </div>
+                <div class="social_icons">
+                    <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-behance"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
+                </div>
+            </div>
+            <div class="bottom">
+                <div>
+                    <h3>Project</h3>
+                    <a href="#">Changelog</a>
+                    <a href="#">Status</a>
+                    <a href="#">License</a>
+                    <a href="#">All Versions</a>
+                </div>
+                <div>
+                    <h3>Community</h3>
+                    <a href="#">Github</a>
+                    <a href="#">Linkedin</a>
+                    <a href="#">Twitter</a>
+                </div>
+                <div>
+                    <h3>Help</h3>
+                    <a href="#">Support</a>
+                    <a href="#">Troubleshooting</a>
+                    <a href="#">Contact Us</a>
+                </div>
+                <div>
+                    <h3>Others</h3>
+                    <a href="#">Terms of Services</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">License</a>
+                    <a href="#">Review</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 JobElevate. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="about-container">
+    <div class="about-header">
+        <h1>About JobElevate</h1>
+        <p>Your trusted partner in career growth and job opportunities</p>
+    </div>
+
+    <div class="about-section">
+        <h2>Our Mission</h2>
+        <p>At JobElevate, we are committed to connecting talented professionals with their dream jobs. Our platform serves as a bridge between job seekers and employers, making the job search process efficient and effective.</p>
+    </div>
+
+    <div class="about-section">
+        <h2>What We Offer</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-search"></i>
+                <h3>Smart Job Search</h3>
+                <p>Find relevant job opportunities tailored to your skills and preferences</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-user-tie"></i>
+                <h3>Career Growth</h3>
+                <p>Access resources and tools to advance your professional journey</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-building"></i>
+                <h3>Company Insights</h3>
+                <p>Get detailed information about potential employers and work environments</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-handshake"></i>
+                <h3>Networking</h3>
+                <p>Connect with industry professionals and expand your network</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-section">
+        <h2>Our Values</h2>
+        <ul class="values-list">
+            <li><strong>Integrity:</strong> We maintain transparency and honesty in all our operations</li>
+            <li><strong>Innovation:</strong> We continuously improve our platform to better serve our users</li>
+            <li><strong>Inclusivity:</strong> We welcome professionals from all backgrounds and industries</li>
+            <li><strong>Excellence:</strong> We strive for the highest quality in our services</li>
+        </ul>
+    </div>
+
+    <!-- Meet the Team Section -->
+    <div class="about-section">
+        <h2>Meet the Team</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="team-photo">
+                <h4>Anshuman</h4>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Team Member" class="team-photo">
+                <h4>Abheer</h4>
+                <p>Head of Product</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Team Member" class="team-photo">
+                <h4>Abhay</h4>
+                <p>Lead Developer</p>
+            </div>
+            <div class="team-card">
+                <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Team Member" class="team-photo">
+                <h4>Bharat</h4>
+                <p>Marketing Manager</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="about-section">
+        <h2>What Our Users Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>"JobElevate helped me land my dream job in just two weeks! The platform is easy to use and the recommendations were spot on."</p>
+                <span>- Ankit, Software Engineer</span>
+            </div>
+            <div class="testimonial-card">
+                <p>"The team at JobElevate is super supportive. I found great opportunities and the application process was seamless."</p>
+                <span>- Meera, Data Analyst</span>
+            </div>
+            <div class="testimonial-card">
+                <p>"I love the company insights and networking features. It made my job search much more effective!"</p>
+                <span>- Rohan, Marketing Specialist</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    margin-top: 80px;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.about-header p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.about-section {
+    margin-bottom: 40px;
+}
+
+.about-section h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    color: #5fb19e;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.values-list {
+    list-style: none;
+    padding: 0;
+}
+
+.values-list li {
+    margin-bottom: 15px;
+    padding-left: 30px;
+    position: relative;
+    color: #666;
+    line-height: 1.6;
+}
+
+.values-list li:before {
+    content: "✓";
+    color: #5fb19e;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.team-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    text-align: center;
+    padding: 24px 16px 16px 16px;
+    transition: transform 0.2s;
+}
+.team-card:hover {
+    transform: translateY(-5px) scale(1.03);
+}
+.team-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 12px;
+    border: 3px solid #5fb19e;
+}
+.team-card h4 {
+    margin: 10px 0 4px 0;
+    color: #333;
+}
+.team-card p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+.testimonial-card {
+    background: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 24px 20px;
+    font-style: italic;
+    color: #333;
+    position: relative;
+}
+.testimonial-card span {
+    display: block;
+    margin-top: 16px;
+    font-style: normal;
+    color: #5fb19e;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        padding: 20px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %} 

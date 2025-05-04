@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Board</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f7f9fc;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .job-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        .job-list {
+            display: grid;
+            gap: 20px;
+            max-height: 600px;
+        }
+        .job-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            height: 100%;
+            position: relative;
+        }
+        .job-title {
+            font-size: 20px;
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .job-company {
+            font-weight: 600;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        .job-location {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        .job-type {
+            display: inline-block;
+            background-color: #e6f3ff;
+            color: #3498db;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .job-description {
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        .no-jobs {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Job Board</h1>
+    
+    <div class="job-form">
+        <h2>Add a New Job</h2>
+        <form id="job-form">
+            <div class="form-group">
+                <label for="job-title">Job Title*</label>
+                <input type="text" id="job-title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="company">Company*</label>
+                <input type="text" id="company" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Location*</label>
+                <input type="text" id="location" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="job-type">Job Type*</label>
+                <select id="job-type" required>
+                    <option value="">Select Job Type</option>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Internship">Internship</option>
+                    <option value="Remote">Remote</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description*</label>
+                <textarea id="description" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Add Job</button>
+        </form>
+    </div>
+    
+    <h2>Current Job Listings</h2>
+    <div id="job-list" class="job-list">
+        <div class="no-jobs" id="no-jobs-message">No jobs posted yet!</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const jobForm = document.getElementById('job-form');
+            const jobList = document.getElementById('job-list');
+            const noJobsMessage = document.getElementById('no-jobs-message');
+            
+            // Load jobs from localStorage on page load
+            loadJobs();
+            
+            // Handle form submission
+            jobForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const title = document.getElementById('job-title').value;
+                const company = document.getElementById('company').value;
+                const location = document.getElementById('location').value;
+                const jobType = document.getElementById('job-type').value;
+                const description = document.getElementById('description').value;
+                
+                // Create job object
+                const job = {
+                    id: Date.now(), // Use timestamp as unique ID
+                    title,  
+                    company,
+                    location,
+                    jobType,
+                    description,
+                    datePosted: new Date().toLocaleDateString()
+                };
+                
+                // Add job to storage
+                addJob(job);
+                
+                // Reset form
+                jobForm.reset();
+                
+                // Trigger storage event for admin page
+                window.dispatchEvent(new Event('storage'));
+            });
+            
+            function addJob(job) {
+                // Get existing jobs from localStorage
+                let jobs = getJobsFromStorage();
+                
+                // Add new job
+                jobs.push(job);
+                
+                // Save to localStorage
+                localStorage.setItem('jobs', JSON.stringify(jobs));
+                
+                // Update display
+                displayJobs();
+            }
+            
+            function removeJob(id) {
+                // Get existing jobs from localStorage
+                let jobs = getJobsFromStorage();
+                
+                // Filter out the job to remove
+                jobs = jobs.filter(job => job.id !== id);
+                
+                // Save to localStorage
+                localStorage.setItem('jobs', JSON.stringify(jobs));
+                
+                // Update display
+                displayJobs();
+                
+                // Trigger storage event for admin page
+                window.dispatchEvent(new Event('storage'));
+            }
+            
+            function getJobsFromStorage() {
+                const jobs = localStorage.getItem('jobs');
+                return jobs ? JSON.parse(jobs) : [];
+            }
+            
+            function displayJobs() {
+                const jobs = getJobsFromStorage();
+                
+                // Clear current job list
+                while (jobList.firstChild) {
+                    jobList.removeChild(jobList.firstChild);
+                }
+                
+                if (jobs.length === 0) {
+                    // Show no jobs message
+                    jobList.appendChild(noJobsMessage);
+                    return;
+                }
+                
+                // Hide no jobs message
+                if (noJobsMessage.parentNode === jobList) {
+                    jobList.removeChild(noJobsMessage);
+                }
+                
+                // Display each job
+                jobs.forEach(job => {
+                    const jobCard = document.createElement('div');
+                    jobCard.className = 'job-card';
+                    jobCard.innerHTML = `
+                        <h3 class="job-title">${job.title}</h3>
+                        <div class="job-company">${job.company}</div>
+                        <div class="job-location">📍 ${job.location}</div>
+                        <div class="job-type">${job.jobType}</div>
+                        <div class="job-description">${job.description}</div>
+                        <div>Posted: ${job.datePosted}</div>
+                        <button class="delete-btn" data-id="${job.id}">Remove</button>
+                    `;
+                    jobList.appendChild(jobCard);
+                    
+                    // Add event listener for delete button
+                    const deleteBtn = jobCard.querySelector('.delete-btn');
+                    deleteBtn.addEventListener('click', function() {
+                        removeJob(parseInt(this.getAttribute('data-id')));
+                    });
+                });
+            }
+            
+            function loadJobs() {
+                displayJobs();
+            }
+        });
+    </script>
+</body>
+</html>

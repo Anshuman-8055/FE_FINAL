@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Job Listings</title>
+    <style>
+        /* Main Content Styles */
+.container {
+    display: flex;
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background for contrast */
+}
+
+.filters {
+    width: 250px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.job-listings {
+    flex: 1;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between job cards */
+}
+
+.job-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease-in-out;
+}
+
+.job-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.company-logo {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+
+.job-card h2 {
+    font-size: 20px; /* Increased font size for job title */
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333; /* Darker color for better readability */
+}
+
+.company {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.job-details {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.job-details span {
+    display: inline-block;
+    margin-right: 10px;
+    color: #666;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.tags span {
+    background: #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+.job-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+}
+
+.save-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #0073e6; /* Link color */
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="container" style="margin: 10%;">
+        <aside class="filters">
+            <form method="GET" action="{{ url_for('home') }}">
+                <h3>All Filters</h3>
+                <h4>Department</h4>
+                <label><input type="checkbox" name="department" value="Engineering - Hardware"> Engineering - Hardware</label>
+                <label><input type="checkbox" name="department" value="Engineering - Software"> Engineering - Software</label>
+                <label><input type="checkbox" name="department" value="IT & Information Services"> IT & Information Services</label>
+                <h4>Experience</h4>
+                <input type="range" name="experience" min="0" max="20" value="0" oninput="this.nextElementSibling.value = this.value">
+                <output>0</output>
+                <h4>Salary</h4>
+                <label><input type="checkbox" name="salary" value="0-3"> 0-3 Lakhs</label>
+                <label><input type="checkbox" name="salary" value="3-6"> 3-6 Lakhs</label>
+                <label><input type="checkbox" name="salary" value="6-10"> 6-10 Lakhs</label>
+                <label><input type="checkbox" name="salary" value="10-15"> 10-15 Lakhs</label>
+                <h4>Location</h4>
+                <label><input type="checkbox" name="location" value="Bengaluru">Bengaluru</label>
+                <label><input type="checkbox" name="location" value="Hyderabad">Hyderabad</label>
+                <label><input type="checkbox" name="location" value="Pune">Pune</label>
+                <label><input type="checkbox" name="location" value="Delhi/NCR">Delhi/NCR</label>
+                <h4>Company Type</h4>
+                <label><input type="checkbox" name="company_type" value="Foreign MNC">Foreign MNC</label>
+                <label><input type="checkbox" name="company_type" value="Corporate">Corporate</label>
+                <label><input type="checkbox" name="company_type" value="Indian MNC">Indian MNC</label>
+                <label><input type="checkbox" name="company_type" value="Startup">Startup</label>
+                <h4>Work mode</h4>
+                <label><input type="checkbox" name="work_mode" value="Work from office">Work from office</label>
+                <label><input type="checkbox" name="work_mode" value="Hybrid">Hybrid</label>
+                <label><input type="checkbox" name="work_mode" value="Remote">Remote</label>
+                <button type="submit">Apply Filters</button>
+            </form>
+        </aside>
+
+        <main class="job-listings">
+            {% for job in jobs %}
+            <div class="job-card">
+                <div class="job-header">
+                    <div class="job-title">
+                        <h2><a href="{{ url_for('it' + job.id) }}">{{ job.title }}</a></h2>
+                        <p class="company"><strong>{{ job.company }}</strong></p>
+                    </div>
+                    <img src="{{ url_for('static', filename='images/' + job.company.lower() + '.jpeg') }}" alt="{{ job.company }} Logo" class="company-logo">
+                </div>
+                <div class="job-details">
+                    <p>📅 {{ job.experience }} Yrs | 💰 {{ job.salary }} | 📍 {{ job.location }}</p>
+                    <p class="tags">
+                        {% for tag in job.tags %}
+                        <span>{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="job-footer">
+                    <p>🕒 {{ job.posted_date }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </main>
+    </div>
+</body>
+</html>
+{% endblock %}

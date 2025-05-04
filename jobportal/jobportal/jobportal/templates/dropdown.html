@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Dropdown Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-btn {
+            /* background-color: #007bff; */
+            background: transparent;
+            color:black;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .dropdown-content {
+            display:flex;
+            position: absolute;
+            background:transparent;
+            min-width: 600px;
+            /* box-shadow: 0px 8px 16px rgba(0,0,0,0.2); */
+            padding: 10px;
+            z-index: 1;
+            gap: 20px;
+            
+            flex-direction: row;
+        }
+        .dropdown.active .dropdown-content {
+            display: flex;
+        }
+        .category {
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .category-container {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            border-right: 1px solid #ccc;
+        }
+        .category-container:last-child {
+            border-right: none;
+        }
+        .dropdown-content a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            background: transparent;
+        }
+    </style>
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var dropdown = document.querySelector(".dropdown");
+            var button = document.querySelector(".dropdown-btn");
+            var content = document.querySelector(".dropdown-content");
+            
+            button.addEventListener("click", function(event) {
+                event.stopPropagation();
+                content.style.display = (content.style.display === "flex") ? "none" : "flex";
+            });
+            
+            document.addEventListener("click", function(event) {
+                if (!dropdown.contains(event.target)) {
+                    content.style.display = "none";
+                }
+            });
+        });
+    </script> -->
+</head>
+<body>
+    <div class="dropdown">
+        <button class="dropdown-btn">Job</button>
+        <div class="dropdown-content">
+            <div class="category-container">
+                <div class="category">Popular categories</div>
+                <a href="{{ url_for('itjobs') }}">IT jobs</a>
+                <a href="{{ url_for('sales' ) }}">Sales jobs</a>
+                <a href="{{ url_for('marketing' ) }}">Marketing jobs</a>
+                <a href="{{ url_for('data' ) }}">Data Science jobs</a>
+                <a href="{{ url_for('hr' ) }}">HR jobs</a>
+                <a href="{{ url_for('engineering' ) }}">Engineering jobs</a>
+            </div>
+            <div class="category-container">
+                <div class="category">Jobs in demand</div>
+                <a href="{{ url_for('fresher' ) }}">Fresher jobs</a>
+                <a href="{{ url_for('mnc' ) }}">MNC jobs</a>
+                <a href="{{ url_for('remote' ) }}">Remote jobs</a>
+                <a href="{{ url_for('work' ) }}">Work from home jobs</a>
+                <a href="{{ url_for('walk' ) }}">Walk-in jobs</a>
+                <a href="{{ url_for('part' ) }}">Part-time jobs</a>
+            </div>
+            <div class="category-container">
+                <div class="category">Jobs by location</div>
+                <a href="#">Jobs in Delhi</a>
+                <a href="#">Jobs in Mumbai</a>
+                <a href="#">Jobs in Bangalore</a>
+                <a href="#">Jobs in Hyderabad</a>
+                <a href="#">Jobs in Chennai</a>
+                <a href="#">Jobs in Pune</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - Job Portal{% endblock %}
+
+{% block content %}
+<section class="section-hero overlay inner-page bg-image"  id="home-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1 class="text-white font-weight-bold">About Us</h1>
+                <div class="custom-breadcrumbs">
+                    <a href="{% url 'jobapp:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>About Us</strong></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title mb-3">Our Mission</h2>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-lg-6">
+                <p class="lead">We are dedicated to connecting talented professionals with their dream jobs and helping companies find the perfect candidates.</p>
+                <p>Our platform provides a seamless experience for both job seekers and employers, making the recruitment process efficient and effective.</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="feature">
+                            <span class="icon icon-briefcase mb-3 d-block"></span>
+                            <h3>Job Matching</h3>
+                            <p>Advanced algorithms to match candidates with the right opportunities.</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="feature">
+                            <span class="icon icon-search mb-3 d-block"></span>
+                            <h3>Easy Search</h3>
+                            <p>Powerful search tools to find the perfect job or candidate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title mb-3">Our Team</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="team-member text-center">
+                    <img src="{% static 'images/Anshuman_AboutUs.jpg' %}" alt="Anshuman" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h3>Anshuman</h3>
+                    <p class="text-muted">CEO & Founder</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="team-member text-center">
+                    <img src="{% static 'images/Abheer_AboutUs.jpg' %}" alt="Abheer" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h3>Abheer</h3>
+                    <p class="text-muted">Technical Director</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="team-member text-center">
+                    <img src="{% static 'images/Bharat_AboutUs.jpg' %}" alt="Bharat" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h3>Bharat</h3>
+                    <p class="text-muted">Operations Manager</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="team-member text-center">
+                    <img src="{% static 'images/Abhay_AboutUs.jpg' %}" alt="Abhay" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                    <h3>Abhay</h3>
+                    <p class="text-muted">Marketing Head</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <h2 class="section-title mb-3">Why Choose Us?</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feature-box text-center p-4">
+                    <span class="icon icon-check-circle mb-3 d-block"></span>
+                    <h3>Verified Jobs</h3>
+                    <p>All job postings are verified to ensure authenticity and quality.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-box text-center p-4">
+                    <span class="icon icon-shield mb-3 d-block"></span>
+                    <h3>Secure Platform</h3>
+                    <p>Your data is protected with advanced security measures.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-box text-center p-4">
+                    <span class="icon icon-support mb-3 d-block"></span>
+                    <h3>24/7 Support</h3>
+                    <p>Our support team is always ready to help you.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .section-title {
+        color: #2c3e50;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+
+    .feature {
+        padding: 2rem;
+        text-align: center;
+        background: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .feature:hover {
+        transform: translateY(-5px);
+    }
+
+    .feature-box {
+        background: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+        transform: translateY(-5px);
+    }
+
+    .team-member {
+        padding: 2rem;
+        background: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .team-member:hover {
+        transform: translateY(-5px);
+    }
+
+    .icon {
+        font-size: 2.5rem;
+        color: #007bff;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+</style>
+{% endblock %} 

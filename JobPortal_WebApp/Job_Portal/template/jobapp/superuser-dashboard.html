@@ -1,0 +1,431 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="admin-dashboard-header d-flex align-items-center justify-content-center">
+                <h2 class="text-center mb-4 admin-dashboard-heading">Admin Dashboard</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Total Ratings</h6>
+                            <h3 class="mb-0">{{ total_ratings }}</h3>
+                        </div>
+                        <div class="icon-circle bg-primary-light">
+                            <i class="icon-star text-primary"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-success">
+                            <i class="icon-arrow-up"></i> 12%
+                        </span>
+                        <span class="text-muted ml-2">Since last month</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Average Rating</h6>
+                            <h3 class="mb-0">{{ average_rating }}</h3>
+                        </div>
+                        <div class="icon-circle bg-success-light">
+                            <i class="icon-chart-bar text-success"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-success">
+                            <i class="icon-arrow-up"></i> 8%
+                        </span>
+                        <span class="text-muted ml-2">Since last month</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-muted mb-2">Jobs with Ratings</h6>
+                            <h3 class="mb-0">{{ jobs_with_ratings }}</h3>
+                        </div>
+                        <div class="icon-circle bg-info-light">
+                            <i class="icon-briefcase text-info"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-success">
+                            <i class="icon-arrow-up"></i> 15%
+                        </span>
+                        <span class="text-muted ml-2">Since last month</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Rated Jobs Section -->
+    {% if top_rated_jobs %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card dashboard-card">
+                <div class="card-header bg-white border-bottom-0 py-3">
+                    <h4 class="mb-0 d-flex align-items-center">
+                        <i class="icon-star text-warning mr-2"></i>Top Rated Jobs
+                        <span class="badge badge-warning ml-2">{{ top_rated_jobs|length }}</span>
+                    </h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="border-0">Job Title</th>
+                                    <th class="border-0">Company</th>
+                                    <th class="border-0">Average Rating</th>
+                                    <th class="border-0">Total Ratings</th>
+                                    <th class="border-0">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for job in top_rated_jobs %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'jobapp:single-job' job.id %}" class="text-primary font-weight-bold">
+                                            {{ job.title }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="text-muted">{{ job.company_name }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <span class="badge badge-warning mr-2">
+                                                {{ job.get_average_rating }} <i class="icon-star"></i>
+                                            </span>
+                                            <div class="progress flex-grow-1" style="height: 6px;">
+                                                <div class="progress-bar bg-warning" style="width: {{ job.get_average_rating|multiply:20 }}%"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{ job.get_rating_count }}</td>
+                                    <td>
+                                        <a href="{% url 'jobapp:single-job' job.id %}" class="btn btn-sm btn-outline-primary">
+                                            <i class="icon-eye"></i> View
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if has_applications or has_messages %}
+        <div class="row">
+            <!-- Applications Section -->
+            {% if has_applications %}
+            <div class="col-lg-8 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white border-bottom-0 py-3">
+                        <h4 class="mb-0 d-flex align-items-center">
+                            <i class="icon-briefcase text-primary mr-2"></i>Job Applications
+                            <span class="badge badge-primary ml-2">{{ applications|length }}</span>
+                        </h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="border-0">Job Title</th>
+                                        <th class="border-0">Applicant</th>
+                                        <th class="border-0">Status</th>
+                                        <th class="border-0">Date</th>
+                                        <th class="border-0">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for application in applications %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'jobapp:single-job' application.job.id %}" class="text-primary font-weight-bold">
+                                                {{ application.job.title }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-circle bg-primary text-white mr-2">
+                                                    {{ application.user.get_full_name|first|upper }}
+                                                </div>
+                                                <div>
+                                                    <div class="font-weight-bold">{{ application.user.get_full_name }}</div>
+                                                    <small class="text-muted">{{ application.user.email }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-pill {% if application.status == 'pending' %}badge-warning{% elif application.status == 'accepted' %}badge-success{% elif application.status == 'rejected' %}badge-danger{% else %}badge-info{% endif %}">
+                                                {{ application.status|title }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted">{{ application.timestamp|date:"M d, Y" }}</span>
+                                        </td>
+                                        <td>
+                                            {% if application.resume %}
+                                            <a href="{% url 'jobapp:view-resume' application.id %}" class="btn btn-sm btn-outline-info" target="_blank">
+                                                <i class="icon-file-pdf-o"></i> Resume
+                                            </a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Contact Messages Section -->
+            {% if has_messages %}
+            <div class="col-lg-4 mb-4">
+                <div class="card dashboard-card">
+                    <div class="card-header bg-white border-bottom-0 py-3">
+                        <h4 class="mb-0 d-flex align-items-center">
+                            <i class="icon-envelope-o text-success mr-2"></i>Contact Messages
+                            <span class="badge badge-success ml-2">{{ contact_messages|length }}</span>
+                        </h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="border-0">Name</th>
+                                        <th class="border-0">Subject</th>
+                                        <th class="border-0">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for message in contact_messages %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-circle bg-success text-white mr-2">
+                                                    {{ message.name|first|upper }}
+                                                </div>
+                                                <div>
+                                                    <div class="font-weight-bold">{{ message.name }}</div>
+                                                    <small class="text-muted">{{ message.email }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="text-success font-weight-bold" data-toggle="modal" data-target="#messageModal{{ message.id }}">
+                                                {{ message.subject }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <span class="text-muted">{{ message.timestamp|date:"M d, Y" }}</span>
+                                        </td>
+                                    </tr>
+                                    <!-- Message Modal -->
+                                    <div class="modal fade" id="messageModal{{ message.id }}" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel{{ message.id }}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="messageModalLabel{{ message.id }}">
+                                                        <i class="icon-envelope-o text-success mr-2"></i>{{ message.subject }}
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="message-header mb-3">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            <div class="avatar-circle bg-success text-white mr-2">
+                                                                {{ message.name|first|upper }}
+                                                            </div>
+                                                            <div>
+                                                                <div class="font-weight-bold">{{ message.name }}</div>
+                                                                <small class="text-muted">{{ message.email }}</small>
+                                                            </div>
+                                                        </div>
+                                                        <small class="text-muted">
+                                                            <i class="icon-clock-o mr-1"></i>{{ message.timestamp|date:"M d, Y H:i" }}
+                                                        </small>
+                                                    </div>
+                                                    <div class="message-content p-3 bg-light rounded">
+                                                        {{ message.message }}
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card dashboard-card">
+                    <div class="card-body text-center py-5">
+                        <i class="icon-info-circle text-info mb-3" style="font-size: 3rem;"></i>
+                        <h4 class="text-muted mb-3">No Data Available</h4>
+                        <p class="text-muted mb-0">There are currently no job applications or contact messages to display.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    body, .dashboard-card, .admin-dashboard-heading, .admin-dashboard-header, .table, .btn, .badge {
+        font-family: 'Inter', Arial, sans-serif !important;
+    }
+    
+    .dashboard-card {
+        border: none;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .dashboard-card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .card-header {
+        border-bottom: none;
+    }
+    
+    .table th {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+    }
+    
+    .table td {
+        vertical-align: middle;
+    }
+    
+    .badge {
+        padding: 0.5em 0.75em;
+        font-weight: 500;
+    }
+    
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .icon-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    
+    .bg-primary-light {
+        background-color: rgba(13, 110, 253, 0.1);
+    }
+    
+    .bg-success-light {
+        background-color: rgba(25, 135, 84, 0.1);
+    }
+    
+    .bg-info-light {
+        background-color: rgba(13, 202, 240, 0.1);
+    }
+    
+    .avatar-circle {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.875rem;
+    }
+    
+    .progress {
+        background-color: #e9ecef;
+        border-radius: 0.25rem;
+    }
+    
+    .message-content {
+        white-space: pre-wrap;
+    }
+    
+    .admin-dashboard-header {
+        margin-top: 60px; /* Push below navbar */
+        gap: 12px;
+    }
+    
+    .dashboard-icon {
+        font-size: 2.2rem;
+        margin-right: 10px;
+    }
+    
+    .admin-dashboard-heading {
+        color: #2c3e50;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 1rem;
+        font-size: 2.2rem;
+        margin-bottom: 0;
+    }
+    
+    .admin-dashboard-heading:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background-color: #3498db;
+    }
+</style>
+{% endblock %} 
