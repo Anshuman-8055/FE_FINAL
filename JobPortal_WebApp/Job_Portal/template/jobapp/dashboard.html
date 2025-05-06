@@ -142,7 +142,6 @@
                                 <th>Job Title</th>
                                 <th>Posted Date</th>
                                 <th>Date expiring</th>
-                                <th>Status</th>
                                 <th>Applicants</th>
                                 <th>Actions</th>
                             </tr>
@@ -153,19 +152,6 @@
                                 <td class="text-left"><a href="{% url 'jobapp:single-job' job.id %}">{{ job.title }}</a></td>
                                 <td>{{ job.timestamp | date:'M d, Y'  }}</td>
                                 <td>{{ job.last_date | date:'M d, Y' }}</td>
-                                <td>
-                                    {% if job.is_published == True %}
-                                
-                                        <span class="badge badge-info">Published</span>
-                                
-                                    {% else %}
-
-                                        <span class="badge badge-danger px-2">Pending</span>
-
-                                    {% endif %}
-                                
-                                </td>
-
                                 <td>
 
                                     {% get_total_applicant total_applicants job as is_applicant %}

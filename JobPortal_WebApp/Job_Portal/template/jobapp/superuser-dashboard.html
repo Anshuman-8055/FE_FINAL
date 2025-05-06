@@ -147,7 +147,7 @@
         <div class="row">
             <!-- Flask Contact Messages Section -->
             {% if has_flask_messages %}
-            <div class="col-lg-4 mb-4">
+            <div class="col-12 mb-4">
                 <div class="card dashboard-card">
                     <div class="card-header bg-white border-bottom-0 py-3">
                         <h4 class="mb-0 d-flex align-items-center">
@@ -353,45 +353,88 @@
 </div>
 
 <style>
+    :root {
+        --primary-color: #1a3b5d;
+        --primary-light: #e8f0f8;
+        --secondary-color: #2c495e;
+        --accent-color: #0d6efd;
+        --text-primary: #2c3e50;
+        --text-secondary: #505f6d;
+        --border-color: #e9ecef;
+        --hover-bg: #f8fafc;
+        --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
     body, .dashboard-card, .admin-dashboard-heading, .admin-dashboard-header, .table, .btn, .badge {
         font-family: 'Inter', Arial, sans-serif !important;
     }
     
     .dashboard-card {
         border: none;
-        border-radius: 0.5rem;
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        transition: transform 0.2s ease-in-out;
+        border-radius: 0.375rem;
+        box-shadow: var(--card-shadow);
+        transition: box-shadow 0.2s ease-in-out;
+        background: #fff;
     }
     
     .dashboard-card:hover {
-        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
     }
     
     .card-header {
-        border-bottom: none;
+        border-bottom: 1px solid var(--border-color);
+        background: #fff;
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .card-header h4 {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+    
+    .table {
+        margin-bottom: 0;
+        color: var(--text-primary);
     }
     
     .table th {
         font-weight: 600;
         text-transform: uppercase;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         letter-spacing: 0.5px;
-        color: #6c757d;
+        color: var(--text-secondary);
+        padding: 1rem 1.5rem;
+        background-color: var(--primary-light);
+        border-bottom: 1px solid var(--border-color);
     }
     
     .table td {
         vertical-align: middle;
+        padding: 1rem 1.5rem;
+        border-top: 1px solid var(--border-color);
+        color: var(--text-primary);
+    }
+    
+    .table tr:hover {
+        background-color: var(--hover-bg);
     }
     
     .badge {
         padding: 0.5em 0.75em;
         font-weight: 500;
+        border-radius: 0.25rem;
+    }
+    
+    .badge-primary {
+        background-color: var(--primary-color);
+        color: #fff;
     }
     
     .btn-sm {
-        padding: 0.25rem 0.5rem;
+        padding: 0.375rem 0.75rem;
         font-size: 0.875rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
     }
     
     .icon-circle {
@@ -405,31 +448,28 @@
     }
     
     .bg-primary-light {
-        background-color: rgba(13, 110, 253, 0.1);
-    }
-    
-    .bg-success-light {
-        background-color: rgba(25, 135, 84, 0.1);
-    }
-    
-    .bg-info-light {
-        background-color: rgba(13, 202, 240, 0.1);
+        background-color: var(--primary-light);
+        color: var(--primary-color);
     }
     
     .avatar-circle {
-        width: 32px;
-        height: 32px;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 600;
         font-size: 0.875rem;
+        background-color: var(--primary-color);
+        color: white;
+        margin-right: 1rem;
     }
     
     .progress {
-        background-color: #e9ecef;
+        background-color: var(--border-color);
         border-radius: 0.25rem;
+        height: 6px;
     }
     
     .message-content {
@@ -437,33 +477,68 @@
     }
     
     .admin-dashboard-header {
-        margin-top: 60px; /* Push below navbar */
-        gap: 12px;
-    }
-    
-    .dashboard-icon {
-        font-size: 2.2rem;
-        margin-right: 10px;
+        margin: 2rem 0;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1.5rem;
     }
     
     .admin-dashboard-heading {
-        color: #2c3e50;
+        color: var(--primary-color);
         font-weight: 600;
-        position: relative;
-        padding-bottom: 1rem;
-        font-size: 2.2rem;
+        font-size: 1.75rem;
         margin-bottom: 0;
     }
     
-    .admin-dashboard-heading:after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 50px;
-        height: 3px;
-        background-color: #3498db;
+    .table-responsive {
+        margin: 0;
+        border-radius: 0.375rem;
+        border: 1px solid var(--border-color);
+    }
+    
+    .card-body {
+        padding: 0;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: var(--hover-bg);
+    }
+    
+    .text-muted {
+        color: var(--text-secondary) !important;
+    }
+    
+    .font-weight-bold {
+        font-weight: 600 !important;
+        color: var(--text-primary);
+    }
+
+    .icon-envelope-o {
+        color: var(--primary-color);
+    }
+
+    .modal-header {
+        background-color: var(--primary-color);
+        color: #fff;
+        border-bottom: none;
+    }
+
+    .modal-header .modal-title {
+        color: #fff;
+    }
+
+    .modal-header .close {
+        color: #fff;
+        opacity: 0.8;
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .modal-content {
+        border: none;
+        border-radius: 0.375rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 </style>
 {% endblock %} 
