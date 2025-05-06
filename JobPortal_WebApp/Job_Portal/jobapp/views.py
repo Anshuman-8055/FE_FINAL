@@ -17,6 +17,7 @@ from account.models import User
 from jobapp.forms import *
 from jobapp.models import *
 from jobapp.permission import *
+from jobapp.models import Contact
 User = get_user_model()
 
 
@@ -440,27 +441,23 @@ def about_us_view(request):
 
 @login_required(login_url=reverse_lazy('account:login'))
 def contact_us_view(request):
-    print("contact_us_view called")  # Debug: confirm this view is being used
     result = None
     if request.method == 'POST':
-        payload = {
-            'name': request.POST.get('name'),
-            'email': request.POST.get('email'),
-            'message': request.POST.get('message'),
-        }
-        print("Sending payload to Flask API:", payload)  # Debug: show payload
-        try:
-            response = requests.post('http://127.0.0.1:5000/api/contact-us', json=payload)
-            result = response.json()
-            print("Flask API response:", result)  # Debug: show API response
-        except Exception as e:
-            result = {"status": "error", "message": f"Could not send message. Error: {e}"}
-            print("Error sending to Flask API:", e)  # Debug: show error
-        if result.get("status") == "success":
-            messages.success(request, result.get("message", "Message sent!"))
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject', '')  # If you have a subject field
+        message = request.POST.get('message')
+        if name and email and message:
+            Contact.objects.create(
+                name=name,
+                email=email,
+                subject=subject,
+                message=message
+            )
+            messages.success(request, "Message sent!")
             return redirect('jobapp:contact-us')
         else:
-            messages.error(request, result.get("message", "Failed to send message."))
+            messages.error(request, "All fields are required.")
     return render(request, 'jobapp/contact-us.html', {'result': result})
 
 @login_required(login_url=reverse_lazy('account:login'))
