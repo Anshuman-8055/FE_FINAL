@@ -6,16 +6,36 @@ from datetime import datetime, date
 from sqlalchemy import func
 import functools
 import re
+import logging
+import os
+from logging.handlers import RotatingFileHandler
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SECRET_KEY"] = "welcome"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# Configure logging
+if not os.path.exists('logs'):
+    os.mkdir('logs')
+file_handler = RotatingFileHandler('logs/flask.log', maxBytes=10240, backupCount=10)
+file_handler.setFormatter(logging.Formatter(
+    '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+))
+file_handler.setLevel(logging.INFO)
+app.logger.addHandler(file_handler)
+app.logger.setLevel(logging.INFO)
+app.logger.info('Job Portal startup')
 
 db = SQLAlchemy(app)
 
 # Create all database tables
-with app.app_context():
-    db.create_all()
+try:
+    with app.app_context():
+        db.create_all()
+        print("Database tables created successfully!")
+except Exception as e:
+    print(f"Error creating database tables: {str(e)}")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -668,8 +688,79 @@ def admin_dashboard():
     applications = JobApplication.query.order_by(JobApplication.date_applied.desc()).all()
     return render_template('admin.html', jobs=jobs, contacts=contacts, applications=applications)
 
+@app.route('/api/contact-messages', methods=['GET'])
+def api_contact_messages():
+    try:
+        app.logger.info('Fetching contact messages')
+        contacts = Contact.query.order_by(Contact.date_submitted.desc()).all()
+        app.logger.info(f'Found {len(contacts)} contact messages')
+        return jsonify([{
+            'id': contact.id,
+            'name': contact.name,
+            'email': contact.email,
+            'message': contact.message,
+            'date_submitted': contact.date_submitted.strftime('%Y-%m-%d %H:%M:%S')
+        } for contact in contacts])
+    except Exception as e:
+        app.logger.error(f'Error fetching contact messages: {str(e)}')
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/job-applications', methods=['GET'])
+def api_job_applications():
+    try:
+        app.logger.info('Fetching job applications')
+        applications = JobApplication.query.order_by(JobApplication.date_applied.desc()).all()
+        app.logger.info(f'Found {len(applications)} job applications')
+        return jsonify([{
+            'id': app.id,
+            'user_id': app.user_id,
+            'job_id': app.job_id,
+            'cover_letter': app.cover_letter,
+            'status': app.status,
+            'date_applied': app.date_applied.strftime('%Y-%m-%d %H:%M:%S'),
+            'user': {
+                'username': app.user.username,
+                'email': app.user.email,
+                'mobile': app.user.mobile
+            } if app.user else None,
+            'job': {
+                'title': app.job.title,
+                'company': app.job.company
+            } if app.job else None
+        } for app in applications])
+    except Exception as e:
+        app.logger.error(f'Error fetching job applications: {str(e)}')
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/update-application-status/<int:application_id>', methods=['POST'])
+@login_required
+def api_update_application_status(application_id):
+    try:
+        if current_user.role != 'admin':
+            return jsonify({'error': 'Unauthorized'}), 403
+        
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+            
+        new_status = data.get('status')
+        if not new_status:
+            return jsonify({'error': 'Status is required'}), 400
+        
+        application = JobApplication.query.get_or_404(application_id)
+        application.status = new_status
+        db.session.commit()
+        
+        return jsonify({
+            'id': application.id,
+            'status': application.status
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
         create_default_jobs()
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=5000)
