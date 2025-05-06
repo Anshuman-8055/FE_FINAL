@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, Avg
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponse
@@ -470,23 +470,89 @@ def superuser_dashboard_view(request):
     # Get Django contact messages
     contact_messages = Contact.objects.all().order_by('-timestamp')
     
-    # Get Flask contact messages
-    flask_contact_messages = FlaskContactMessage.objects.using('flaskdb').all().order_by('-date_submitted')
-    
     # Get Django job applications
     django_applications = Applicant.objects.all().order_by('-timestamp')
     
-    # Get Flask job applications
-    flask_applications = FlaskJobApplication.objects.using('flaskdb').all().order_by('-date_applied')
+    # Initialize Flask-related variables
+    flask_contact_messages = []
+    flask_applications = []
+    flask_jobs = {}
+    flask_users = {}
+    
+    try:
+        # Get Flask contact messages
+        flask_contact_messages = FlaskContactMessage.objects.using('flaskdb').all().order_by('-date_submitted')
+        
+        # Get Flask job applications with related job and user info
+        flask_applications = FlaskJobApplication.objects.using('flaskdb').all().order_by('-date_applied')
+        
+        # Get job and user info for Flask applications
+        for app in flask_applications:
+            if app.job_id not in flask_jobs:
+                try:
+                    job = Job.objects.using('flaskdb').get(id=app.job_id)
+                    flask_jobs[app.job_id] = job
+                except Job.DoesNotExist:
+                    flask_jobs[app.job_id] = None
+            
+            if app.user_id not in flask_users:
+                try:
+                    user = User.objects.using('flaskdb').get(id=app.user_id)
+                    flask_users[app.user_id] = user
+                except User.DoesNotExist:
+                    flask_users[app.user_id] = None
+    except Exception as e:
+        messages.warning(request, f'Could not load Flask data: {str(e)}')
+    
+    # Calculate statistics for the dashboard
+    total_ratings = JobRating.objects.count()
+    jobs_with_ratings = Job.objects.filter(ratings__isnull=False).distinct().count()
+    average_rating = JobRating.objects.aggregate(Avg('rating'))['rating__avg'] or 0
+    
+    # Get top rated jobs
+    top_rated_jobs = Job.objects.annotate(
+        avg_rating=Avg('ratings__rating')
+    ).filter(avg_rating__isnull=False).order_by('-avg_rating')[:5]
     
     context = {
         'contact_messages': contact_messages,
         'flask_contact_messages': flask_contact_messages,
         'django_applications': django_applications,
         'flask_applications': flask_applications,
+        'flask_jobs': flask_jobs,
+        'flask_users': flask_users,
+        'total_ratings': total_ratings,
+        'jobs_with_ratings': jobs_with_ratings,
+        'average_rating': round(average_rating, 1),
+        'top_rated_jobs': top_rated_jobs,
+        'has_messages': contact_messages.exists() or flask_contact_messages.exists(),
+        'has_applications': django_applications.exists() or flask_applications.exists(),
+        'has_flask_messages': flask_contact_messages.exists(),
     }
     
     return render(request, 'jobapp/superuser-dashboard.html', context)
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def view_application(request, application_id):
+    try:
+        # Try Django application first
+        application = Applicant.objects.get(id=application_id)
+        is_flask = False
+    except Applicant.DoesNotExist:
+        try:
+            # Try Flask application
+            application = FlaskJobApplication.objects.using('flaskdb').get(id=application_id)
+            is_flask = True
+        except FlaskJobApplication.DoesNotExist:
+            messages.error(request, 'Application not found.')
+            return redirect('jobapp:admin-dashboard')
+    
+    context = {
+        'application': application,
+        'is_flask': is_flask
+    }
+    return render(request, 'jobapp/application-detail.html', context)
 
 @login_required(login_url=reverse_lazy('account:login'))
 def view_resume(request, application_id):
@@ -527,3 +593,45 @@ def delete_test_message(request):
     
     messages.success(request, 'Test message has been removed successfully!')
     return redirect('jobapp:admin-dashboard')
+
+@login_required(login_url=reverse_lazy('account:login'))
+def update_application_status(request, application_id, status):
+    if not request.user.is_superuser:
+        return redirect('home')
+    
+    try:
+        # Try Django application first
+        application = Applicant.objects.get(id=application_id)
+        application.status = status
+        application.save()
+        messages.success(request, f'Application status updated to {status}')
+    except Applicant.DoesNotExist:
+        try:
+            # Try Flask application
+            application = FlaskJobApplication.objects.using('flaskdb').get(id=application_id)
+            if status == 'shortlisted':
+                application.status = 'Accepted'
+            elif status == 'rejected':
+                application.status = 'Rejected'
+            application.save()
+            messages.success(request, f'Application status updated to {status}')
+        except FlaskJobApplication.DoesNotExist:
+            messages.error(request, 'Application not found')
+    
+    return redirect('jobapp:admin-dashboard')
+
+@login_required(login_url=reverse_lazy('account:login'))
+def view_flask_application(request, application_id):
+    if not request.user.is_superuser:
+        return redirect('home')
+    
+    try:
+        application = FlaskJobApplication.objects.using('flaskdb').get(id=application_id)
+        context = {
+            'application': application,
+            'is_flask': True
+        }
+        return render(request, 'jobapp/application-detail.html', context)
+    except FlaskJobApplication.DoesNotExist:
+        messages.error(request, 'Application not found')
+        return redirect('jobapp:admin-dashboard')
