@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, UserMixin, login_required, current_user
@@ -636,6 +636,25 @@ def update_application(app_id):
         flash('Application status updated successfully!', 'success')
     
     return redirect(url_for('view_applications'))
+
+@app.route('/api/contact-us', methods=['POST'])
+def api_contact_us():
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+    message = data.get('message')
+
+    if not name or not email or not message:
+        return jsonify({'status': 'error', 'message': 'All fields are required.'}), 400
+
+    contact = Contact(
+        name=name,
+        email=email,
+        message=message
+    )
+    db.session.add(contact)
+    db.session.commit()
+    return jsonify({'status': 'success', 'message': 'Message sent successfully!'}), 200
 
 if __name__ == "__main__":
     with app.app_context():
