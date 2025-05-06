@@ -425,11 +425,37 @@ def job_edit_view(request, id=id):
 @login_required
 @user_is_employee
 def remove_application_view(request, id):
-    job = get_object_or_404(Job, id=id)
-    application = get_object_or_404(Applicant, user=request.user, job=job)
-    application.delete()
-    messages.success(request, 'Your application has been removed successfully!')
-    return redirect(reverse('jobapp:single-job', kwargs={'id': id}))
+    try:
+        # Try Django application first
+        try:
+            # Get the application directly using the ID
+            application = get_object_or_404(Applicant, id=id)
+            # Verify the user owns this application
+            if application.user.id != request.user.id:
+                messages.error(request, 'You are not authorized to remove this application.')
+                return redirect('jobapp:dashboard')
+            application.delete()
+            messages.success(request, 'Application removed successfully!')
+            logger.info(f'Successfully removed Django application {id}')
+        except Http404:
+            # If not found in Django, try Flask application
+            try:
+                flask_application = FlaskJobApplication.objects.using('flaskdb').get(id=id)
+                # Verify the user owns this application
+                if flask_application.user_id != request.user.id:
+                    messages.error(request, 'You are not authorized to remove this application.')
+                    return redirect('jobapp:dashboard')
+                flask_application.delete()
+                messages.success(request, 'Application removed successfully!')
+                logger.info(f'Successfully removed Flask application {id}')
+            except FlaskJobApplication.DoesNotExist:
+                messages.error(request, 'Application not found!')
+                logger.error(f'Application {id} not found in either Django or Flask database')
+    except Exception as e:
+        messages.error(request, f'Error removing application: {str(e)}')
+        logger.error(f'Error removing application {id}: {str(e)}')
+    
+    return redirect('jobapp:dashboard')
 
 def about_us_view(request):
     print("about_us_view called")  # Debug: confirm this view is being used
@@ -646,16 +672,25 @@ def update_application_status(request, application_id, status):
     except Applicant.DoesNotExist:
         try:
             # Try Flask application through API
+            flask_status = 'Accepted' if status == 'shortlisted' else 'Rejected'
             response = requests.post(
                 f'http://127.0.0.1:5000/api/update-application-status/{application_id}',
-                json={'status': 'Accepted' if status == 'shortlisted' else 'Rejected'}
+                json={'status': flask_status},
+                timeout=5
             )
             if response.status_code == 200:
                 messages.success(request, f'Application status updated to {status}')
+                logger.info(f'Successfully updated Flask application {application_id} status to {flask_status}')
             else:
-                messages.error(request, 'Failed to update application status')
+                error_msg = response.json().get('error', 'Unknown error')
+                messages.error(request, f'Failed to update application status: {error_msg}')
+                logger.error(f'Failed to update Flask application status. Status code: {response.status_code}, Error: {error_msg}')
+        except requests.exceptions.RequestException as e:
+            messages.error(request, f'Error updating application status: {str(e)}')
+            logger.error(f'Request error while updating Flask application status: {str(e)}')
         except Exception as e:
             messages.error(request, f'Error updating application status: {str(e)}')
+            logger.error(f'Unexpected error while updating Flask application status: {str(e)}')
     
     return redirect('jobapp:admin-dashboard')
 

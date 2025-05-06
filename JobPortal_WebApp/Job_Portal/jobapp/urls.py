@@ -22,6 +22,7 @@ urlpatterns = [
     path('dashboard/employer/close/<int:id>/', views.make_complete_job_view, name='complete'),
     path('dashboard/employer/delete/<int:id>/', views.delete_job_view, name='delete'),
     path('dashboard/employee/delete-bookmark/<int:id>/', views.delete_bookmark_view, name='delete-bookmark'),
+    path('dashboard/employee/remove-application/<int:id>/', views.remove_application_view, name='remove-application'),
     path('remove-application/<int:id>/', views.remove_application_view, name='remove-application'),
     path('about-us/', views.about_us_view, name='about-us'),
     path('admin-dashboard/', views.superuser_dashboard_view, name='admin-dashboard'),

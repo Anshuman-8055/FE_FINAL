@@ -733,12 +733,8 @@ def api_job_applications():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/update-application-status/<int:application_id>', methods=['POST'])
-@login_required
 def api_update_application_status(application_id):
     try:
-        if current_user.role != 'admin':
-            return jsonify({'error': 'Unauthorized'}), 403
-        
         data = request.get_json()
         if not data:
             return jsonify({'error': 'No data provided'}), 400
@@ -747,16 +743,51 @@ def api_update_application_status(application_id):
         if not new_status:
             return jsonify({'error': 'Status is required'}), 400
         
+        if new_status not in ['Accepted', 'Rejected']:
+            return jsonify({'error': 'Invalid status. Must be Accepted or Rejected'}), 400
+        
         application = JobApplication.query.get_or_404(application_id)
         application.status = new_status
         db.session.commit()
         
+        app.logger.info(f'Application {application_id} status updated to {new_status}')
         return jsonify({
             'id': application.id,
             'status': application.status
         })
     except Exception as e:
         db.session.rollback()
+        app.logger.error(f'Error updating application status: {str(e)}')
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/remove-application/<int:application_id>', methods=['DELETE'])
+def api_remove_application(application_id):
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+            
+        user_id = data.get('user_id')
+        if not user_id:
+            return jsonify({'error': 'User ID is required'}), 400
+        
+        application = JobApplication.query.get_or_404(application_id)
+        
+        # Verify that the application belongs to the user
+        if application.user_id != user_id:
+            return jsonify({'error': 'Unauthorized'}), 403
+        
+        db.session.delete(application)
+        db.session.commit()
+        
+        app.logger.info(f'Application {application_id} removed by user {user_id}')
+        return jsonify({
+            'message': 'Application removed successfully',
+            'id': application_id
+        })
+    except Exception as e:
+        db.session.rollback()
+        app.logger.error(f'Error removing application: {str(e)}')
         return jsonify({'error': str(e)}), 500
 
 if __name__ == "__main__":
