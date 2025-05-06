@@ -125,27 +125,25 @@ class FlaskContactMessage(models.Model):
 
 class FlaskJobApplication(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
-    job_title = models.CharField(max_length=200)
-    company = models.CharField(max_length=200)
-    resume = models.CharField(max_length=255)  # Path to resume file
+    user_id = models.IntegerField()
+    job_id = models.IntegerField()
     cover_letter = models.TextField()
-    date_applied = models.DateTimeField()
     status = models.CharField(
         max_length=20,
         choices=[
-            ('pending', 'Pending'),
-            ('reviewed', 'Reviewed'),
-            ('shortlisted', 'Shortlisted'),
-            ('rejected', 'Rejected')
+            ('Pending', 'Pending'),
+            ('Accepted', 'Accepted'),
+            ('Rejected', 'Rejected')
         ],
-        default='pending'
+        default='Pending'
     )
+    date_applied = models.DateTimeField()
+    gender = models.CharField(max_length=10, null=True, blank=True)
+    dob = models.CharField(max_length=20, null=True, blank=True)
+    experience = models.CharField(max_length=200, null=True, blank=True)
 
     class Meta:
-        db_table = 'job_application'  # This should match your Flask table name
+        db_table = 'job_application'
         managed = False
 
     def save(self, *args, **kwargs):
@@ -160,5 +158,13 @@ class FlaskJobApplication(models.Model):
     def objects(cls):
         return super().objects.using('flaskdb')
 
+    def approve(self):
+        self.status = 'Accepted'
+        self.save()
+
+    def reject(self):
+        self.status = 'Rejected'
+        self.save()
+
     def __str__(self):
-        return f"{self.name} - {self.job_title}"
+        return f"Application {self.id} - {self.status}"

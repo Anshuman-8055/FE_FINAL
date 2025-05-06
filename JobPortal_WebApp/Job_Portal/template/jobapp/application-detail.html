@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Application Details{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Application Details</h4>
+                </div>
+                <div class="card-body">
+                    {% if is_flask %}
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Applicant Information</h5>
+                                <p><strong>Name:</strong> {{ application.name }}</p>
+                                <p><strong>Email:</strong> {{ application.email }}</p>
+                                <p><strong>Phone:</strong> {{ application.phone }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Job Information</h5>
+                                <p><strong>Job Title:</strong> {{ application.job_title }}</p>
+                                <p><strong>Company:</strong> {{ application.company }}</p>
+                                <p><strong>Date Applied:</strong> {{ application.date_applied|date:"F d, Y" }}</p>
+                                <p><strong>Status:</strong> 
+                                    <span class="badge {% if application.status == 'shortlisted' %}badge-success{% elif application.status == 'rejected' %}badge-danger{% else %}badge-warning{% endif %}">
+                                        {{ application.status|title }}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>Cover Letter</h5>
+                                <div class="p-3 bg-light rounded">
+                                    {{ application.cover_letter|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                        {% if application.status == 'pending' %}
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="btn-group">
+                                        <a href="{% url 'jobapp:update-application-status' application.id 'shortlisted' %}" class="btn btn-success">Approve</a>
+                                        <a href="{% url 'jobapp:update-application-status' application.id 'rejected' %}" class="btn btn-danger">Reject</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <!-- Django application details -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5>Applicant Information</h5>
+                                <p><strong>Name:</strong> {{ application.user.get_full_name }}</p>
+                                <p><strong>Email:</strong> {{ application.user.email }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Job Information</h5>
+                                <p><strong>Job Title:</strong> {{ application.job.title }}</p>
+                                <p><strong>Company:</strong> {{ application.job.company_name }}</p>
+                                <p><strong>Date Applied:</strong> {{ application.timestamp|date:"F d, Y" }}</p>
+                                <p><strong>Status:</strong> 
+                                    <span class="badge {% if application.status == 'shortlisted' %}badge-success{% elif application.status == 'rejected' %}badge-danger{% else %}badge-warning{% endif %}">
+                                        {{ application.status|title }}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        {% if application.cover_letter %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5>Cover Letter</h5>
+                                    <div class="p-3 bg-light rounded">
+                                        {{ application.cover_letter|safe }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if application.resume %}
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h5>Resume</h5>
+                                    <a href="{% url 'jobapp:view-resume' application.id %}" class="btn btn-info" target="_blank">
+                                        <i class="icon-file-pdf-o"></i> View Resume
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if application.status == 'pending' %}
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <div class="btn-group">
+                                        <a href="{% url 'jobapp:update-application-status' application.id 'shortlisted' %}" class="btn btn-success">Approve</a>
+                                        <a href="{% url 'jobapp:update-application-status' application.id 'rejected' %}" class="btn btn-danger">Reject</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'jobapp:admin-dashboard' %}" class="btn btn-secondary">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

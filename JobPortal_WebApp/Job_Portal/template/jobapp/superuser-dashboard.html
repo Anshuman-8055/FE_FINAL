@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load custom_filters %}
+{% load jobapp_extras %}
 
 {% block title %}Admin Dashboard{% endblock %}
 
@@ -404,10 +405,20 @@
                             <tr>
                                 <td>{{ application.user.get_full_name }}</td>
                                 <td>{{ application.job.title }}</td>
-                                <td>{{ application.status }}</td>
+                                <td>
+                                    <span class="badge {% if application.status == 'shortlisted' %}badge-success{% elif application.status == 'rejected' %}badge-danger{% else %}badge-warning{% endif %}">
+                                        {{ application.status|title }}
+                                    </span>
+                                </td>
                                 <td>{{ application.timestamp|date:"M d, Y" }}</td>
                                 <td>
-                                    <a href="{% url 'jobapp:applicant-detail' application.id %}" class="btn btn-sm btn-info">View</a>
+                                    <div class="btn-group">
+                                        <a href="{% url 'jobapp:view-application' application.id %}" class="btn btn-info">View</a>
+                                        {% if application.status == 'pending' %}
+                                            <a href="{% url 'jobapp:update-application-status' application.id 'shortlisted' %}" class="btn btn-success">Approve</a>
+                                            <a href="{% url 'jobapp:update-application-status' application.id 'rejected' %}" class="btn btn-danger">Reject</a>
+                                        {% endif %}
+                                    </div>
                                 </td>
                             </tr>
                             {% endfor %}
@@ -426,40 +437,72 @@
             <h5 class="mb-0">Flask Job Applications</h5>
         </div>
         <div class="card-body">
-            {% if flask_applications %}
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Job Title</th>
-                                <th>Company</th>
-                                <th>Status</th>
-                                <th>Date Applied</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for application in flask_applications %}
-                            <tr>
-                                <td>{{ application.name }}</td>
-                                <td>{{ application.email }}</td>
-                                <td>{{ application.job_title }}</td>
-                                <td>{{ application.company }}</td>
-                                <td>{{ application.status }}</td>
-                                <td>{{ application.date_applied|date:"M d, Y" }}</td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-info" onclick="viewFlaskApplication({{ application.id }})">View</a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% else %}
-                <p class="text-muted">No Flask job applications found.</p>
-            {% endif %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Applicant</th>
+                            <th>Job Title</th>
+                            <th>Company</th>
+                            <th>Status</th>
+                            <th>Date Applied</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in flask_applications %}
+                        <tr>
+                            <td>
+                                {% with user=flask_users|get_item:application.user_id %}
+                                    {% if user %}
+                                        {{ user.name }}
+                                    {% else %}
+                                        Unknown User
+                                    {% endif %}
+                                {% endwith %}
+                            </td>
+                            <td>
+                                {% with job=flask_jobs|get_item:application.job_id %}
+                                    {% if job %}
+                                        {{ job.title }}
+                                    {% else %}
+                                        Unknown Job
+                                    {% endif %}
+                                {% endwith %}
+                            </td>
+                            <td>
+                                {% with job=flask_jobs|get_item:application.job_id %}
+                                    {% if job %}
+                                        {{ job.company }}
+                                    {% else %}
+                                        Unknown Company
+                                    {% endif %}
+                                {% endwith %}
+                            </td>
+                            <td>
+                                <span class="badge {% if application.status == 'Accepted' %}bg-success{% elif application.status == 'Rejected' %}bg-danger{% else %}bg-warning{% endif %}">
+                                    {{ application.status }}
+                                </span>
+                            </td>
+                            <td>{{ application.date_applied|date:"M d, Y" }}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'jobapp:view-application' application.id %}" class="btn btn-sm btn-info">View</a>
+                                    {% if application.status == 'Pending' %}
+                                        <a href="{% url 'jobapp:update-application-status' application.id 'shortlisted' %}" class="btn btn-sm btn-success">Approve</a>
+                                        <a href="{% url 'jobapp:update-application-status' application.id 'rejected' %}" class="btn btn-sm btn-danger">Reject</a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No Flask job applications found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

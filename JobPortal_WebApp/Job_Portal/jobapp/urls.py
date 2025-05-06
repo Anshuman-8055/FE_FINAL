@@ -28,4 +28,7 @@ urlpatterns = [
     path('view-resume/<int:application_id>/', views.view_resume, name='view-resume'),
     path('rate-job/<int:id>/', views.rate_job_view, name='rate-job'),
     path('delete-test-message/', views.delete_test_message, name='delete-test-message'),
+    path('update-application-status/<int:application_id>/<str:status>/', views.update_application_status, name='update-application-status'),
+    path('view-flask-application/<int:application_id>/', views.view_flask_application, name='view-flask-application'),
+    path('view-application/<int:application_id>/', views.view_application, name='view-application'),
 ]

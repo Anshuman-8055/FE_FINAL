@@ -53,9 +53,9 @@ admin.site.register(FlaskContactMessage, FlaskContactMessageAdmin)
 
 @admin.register(FlaskJobApplication)
 class FlaskJobApplicationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'job_title', 'company', 'date_applied', 'status')
+    list_display = ('id', 'user_id', 'job_id', 'status', 'date_applied')
     list_filter = ('status', 'date_applied')
-    search_fields = ('name', 'email', 'job_title', 'company')
+    search_fields = ('user_id', 'job_id', 'status')
     readonly_fields = ('date_applied',)
     ordering = ('-date_applied',)
 
