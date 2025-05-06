@@ -656,8 +656,20 @@ def api_contact_us():
     db.session.commit()
     return jsonify({'status': 'success', 'message': 'Message sent successfully!'}), 200
 
+@app.route('/admin-dashboard/')
+@login_required
+def admin_dashboard():
+    if current_user.role != 'admin':
+        flash('Access denied: Admins only.', 'danger')
+        return redirect(url_for('home'))
+    
+    jobs = Job.query.all()
+    contacts = Contact.query.order_by(Contact.date_submitted.desc()).all()
+    applications = JobApplication.query.order_by(JobApplication.date_applied.desc()).all()
+    return render_template('admin.html', jobs=jobs, contacts=contacts, applications=applications)
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        create_default_jobs()  # Create default jobs
-    app.run(debug=True)
+        create_default_jobs()
+    app.run(debug=True, port=8000)
