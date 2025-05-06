@@ -16,31 +16,50 @@ body {
     background: rgba(31, 74, 64, 0.9); /* Slight transparency */
     z-index: 1000;
     transition: background 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Navbar shadow on scroll */
-  .navbar.scrolled {
+}
+
+/* Admin Navbar Styles */
+.navbar.admin-navbar {
+    background: #ffffff !important;
+}
+
+.navbar.admin-navbar .nav_wrapper {
+    background: #ffffff;
+}
+
+.navbar.admin-navbar .logo h3 a,
+.navbar.admin-navbar .nav_link,
+.navbar.admin-navbar .btn a {
+    color: #000000 !important;
+}
+
+.navbar.admin-navbar .logo {
+    color: #000000 !important;
+}
+
+/* Navbar shadow on scroll */
+.navbar.scrolled {
     background: #1f4a40; /* Solid background when scrolled */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Navbar hover effect */
-  .navbar:hover {
+}
+
+/* Navbar hover effect */
+.navbar:hover {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Navbar container */
-  .nav_wrapper {
+}
+
+/* Navbar container */
+.nav_wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
-  }
-  
-  /* Logo styles */
-  .logo {
+}
+
+/* Logo styles */
+.logo {
     text-decoration: none;
     font-size: 1.6rem;
     font-weight: 700;
@@ -51,24 +70,24 @@ body {
     transition: color 0.3s ease;
     /* position: relative; */
     padding: 0.5rem 0;
-  }
-  
-  .logo img {
+}
+
+.logo img {
     height: 45px;
     width: auto;
     border-radius: 8px;
-  }
-  
-  /* Navigation menu */
-  .nav_menu {
+}
+
+/* Navigation menu */
+.nav_menu {
     display: flex;
     gap: 2rem;
     list-style: none;
     align-items: center;
-  }
-  
-  /* Navigation links */
-  .nav_link {
+}
+
+/* Navigation links */
+.nav_link {
     text-decoration: none;
     color: #fff;
     font-weight: 500;
@@ -76,10 +95,10 @@ body {
     transition: color 0.3s ease;
     position: relative;
     padding: 0.5rem 0;
-  }
+}
 
-  /* Underline animation */
-  .nav_link::after {
+/* Underline animation */
+.nav_link::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -89,18 +108,18 @@ body {
     background: #5fb19e;
     transition: all 0.3s ease;
     transform: translateX(-50%);
-  }
-  
-  .nav_link:hover {
+}
+
+.nav_link:hover {
     color: #5fb19e;
-  }
-  
-  .nav_link:hover::after {
+}
+
+.nav_link:hover::after {
     width: 100%;
-  }
-  
-  /* Buttons */
-  .btn {
+}
+
+/* Buttons */
+.btn {
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 8px;
@@ -109,13 +128,12 @@ body {
     transition: all 0.3s ease;
     background: #5fb19e;
     color: #fff;
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
     background: #1f4a40 ;
     transform: translateY(-3px);
-  }
-
+}
 
 /* Contact Section Styling */
 .contact {
@@ -179,70 +197,71 @@ body {
     background: #1f4a40 ;
     color: white;
     padding: 4rem 2rem 2rem;
-  }
-  
-  .footer .container {
+}
+
+.footer .container {
     max-width: 1000px;
     margin: 0 auto;
-  }
-  
-  .footer .top {
+}
+
+.footer .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 3rem;
-  }
-  
-  .footer .logo {
+}
+
+.footer .logo {
     color: white;
-  }
-  
-  .social_icons {
+}
+
+.social_icons {
     display: flex;
     gap: 1rem;
-  }
-  
-  .social_icons a {
+}
+
+.social_icons a {
     color: white;
     font-size: 1.5rem;
     transition: color 0.3s ease;
-  }
-  
-  .social_icons a:hover {
+}
+
+.social_icons a:hover {
     color: white;
     transform: translateY(-2px);
-  }
-  
-  .footer .bottom {
+}
+
+.footer .bottom {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
-  }
-  
-  .footer h3 {
+}
+
+.footer h3 {
     margin-bottom: 1rem;
     font-size: 1.25rem;
-  }
-  
-  .footer a {
+}
+
+.footer a {
     color: white;
     text-decoration: none;
     display: block;
     margin-bottom: 0.5rem;
     transition: all 0.3s ease;
-  }
-  
-  .footer a:hover {
+}
+
+.footer a:hover {
     color:#5fb19e ;
     transform: translateX(5px);
-  }
-  
-  .footer-bottom {
+}
+
+.footer-bottom {
     text-align: center;
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
+}
+
 /* Responsive Styling */
 @media (max-width: 768px) {
     .navbar .nav_menu {
