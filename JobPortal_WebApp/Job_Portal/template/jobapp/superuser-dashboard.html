@@ -160,32 +160,24 @@
                             <table class="table table-hover mb-0">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th class="border-0">Name</th>
-                                        <th class="border-0">Email</th>
-                                        <th class="border-0">Date</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for message in flask_contact_messages %}
                                     <tr>
+                                        <td>{{ message.name }}</td>
+                                        <td>{{ message.email }}</td>
+                                        <td>{{ message.date_submitted }}</td>
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar-circle bg-primary text-white mr-2">
-                                                    {{ message.name|first|upper }}
-                                                </div>
-                                                <div>
-                                                    <div class="font-weight-bold">{{ message.name }}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <small class="text-muted">{{ message.email }}</small>
-                                        </td>
-                                        <td>
-                                            <span class="text-muted">{{ message.date_submitted|date:"M d, Y" }}</span>
+                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#flaskMessageModal{{ message.id }}">
+                                                View Message
+                                            </button>
                                         </td>
                                     </tr>
-                                    <!-- Message Modal -->
                                     <div class="modal fade" id="flaskMessageModal{{ message.id }}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -197,7 +189,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <p class="mb-2"><strong>Email:</strong> {{ message.email }}</p>
-                                                    <p class="mb-2"><strong>Date:</strong> {{ message.date_submitted|date:"F d, Y H:i" }}</p>
+                                                    <p class="mb-2"><strong>Date:</strong> {{ message.date_submitted }}</p>
                                                     <hr>
                                                     <p class="mb-0">{{ message.message }}</p>
                                                 </div>
@@ -297,31 +289,15 @@
                     <tbody>
                         {% for application in flask_applications %}
                         <tr>
-                            <td>{{ application.user_id }}</td>
+                            <td>{{ application.user.username }}</td>
+                            <td>{{ application.job.title }}</td>
+                            <td>{{ application.job.company }}</td>
                             <td>
-                                {% with job=flask_jobs|get_item:application.job_id %}
-                                    {% if job %}
-                                        {{ job.title }}
-                                    {% else %}
-                                        Unknown Job
-                                    {% endif %}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                {% with job=flask_jobs|get_item:application.job_id %}
-                                    {% if job %}
-                                        {{ job.company }}
-                                    {% else %}
-                                        Unknown Company
-                                    {% endif %}
-                                {% endwith %}
-                            </td>
-                            <td>
-                                <span class="badge {% if application.status == 'Accepted' %}badge-success{% elif application.status == 'Rejected' %}badge-danger{% else %}badge-warning{% endif %}">
+                                <span class="badge badge-{{ application.status|lower }}">
                                     {{ application.status }}
                                 </span>
                             </td>
-                            <td>{{ application.date_applied|date:"F d, Y" }}</td>
+                            <td>{{ application.date_applied }}</td>
                             <td>
                                 <div class="btn-group">
                                     <a href="{% url 'jobapp:view-application' application.id %}" class="btn btn-sm btn-info">View</a>

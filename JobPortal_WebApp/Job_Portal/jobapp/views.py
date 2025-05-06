@@ -12,6 +12,7 @@ from django.core.cache import cache
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 import requests
+import logging
 
 from account.models import User
 from jobapp.forms import *
@@ -21,6 +22,7 @@ from jobapp.models import Contact
 from .models import Job, Applicant, Contact, JobRating, FlaskContactMessage, FlaskJobApplication, FlaskJob, FlaskUser
 User = get_user_model()
 
+logger = logging.getLogger('jobapp')
 
 def home_view(request):
 
@@ -464,37 +466,52 @@ def contact_us_view(request):
 @login_required(login_url=reverse_lazy('account:login'))
 def superuser_dashboard_view(request):
     if not request.user.is_superuser:
+        logger.warning(f'Unauthorized access attempt to admin dashboard by user {request.user.username}')
         return redirect('home')
+    
+    logger.info(f'Admin dashboard accessed by {request.user.username}')
     
     # Get Django contact messages
     contact_messages = Contact.objects.all().order_by('-timestamp')
+    logger.info(f'Found {contact_messages.count()} Django contact messages')
     
     # Get Django job applications
     django_applications = Applicant.objects.all().order_by('-timestamp')
+    logger.info(f'Found {django_applications.count()} Django job applications')
     
     # Initialize Flask-related variables
     flask_contact_messages = []
     flask_applications = []
-    flask_jobs = {}
-    flask_users = {}
     
     try:
-        # Get Flask contact messages
-        flask_contact_messages = FlaskContactMessage.objects.using('flaskdb').all().order_by('-date_submitted')
+        # Get Flask contact messages from API
+        logger.info('Fetching Flask contact messages')
+        response = requests.get('http://127.0.0.1:5000/api/contact-messages', timeout=5)
+        if response.status_code == 200:
+            flask_contact_messages = response.json()
+            logger.info(f'Successfully fetched {len(flask_contact_messages)} Flask contact messages')
+        else:
+            logger.warning(f'Failed to fetch Flask contact messages. Status code: {response.status_code}')
+            messages.warning(request, f'Could not fetch Flask contact messages. Status code: {response.status_code}')
         
-        # Get Flask job applications with related job and user info
-        flask_applications = FlaskJobApplication.objects.using('flaskdb').all().order_by('-date_applied')
-        
-        # Get job and user info for Flask applications
-        for app in flask_applications:
-            if app.job_id not in flask_jobs:
-                try:
-                    job = FlaskJob.objects.using('flaskdb').get(id=app.job_id)
-                    flask_jobs[app.job_id] = job
-                except FlaskJob.DoesNotExist:
-                    flask_jobs[app.job_id] = None
+        # Get Flask job applications from API
+        logger.info('Fetching Flask job applications')
+        response = requests.get('http://127.0.0.1:5000/api/job-applications', timeout=5)
+        if response.status_code == 200:
+            flask_applications = response.json()
+            logger.info(f'Successfully fetched {len(flask_applications)} Flask job applications')
+        else:
+            logger.warning(f'Failed to fetch Flask job applications. Status code: {response.status_code}')
+            messages.warning(request, f'Could not fetch Flask job applications. Status code: {response.status_code}')
+    except requests.exceptions.ConnectionError:
+        logger.error('Connection error while fetching Flask data')
+        messages.error(request, 'Could not connect to Flask server. Please ensure it is running.')
+    except requests.exceptions.Timeout:
+        logger.error('Timeout while fetching Flask data')
+        messages.error(request, 'Request to Flask server timed out.')
     except Exception as e:
-        messages.warning(request, f'Could not load Flask data: {str(e)}')
+        logger.error(f'Error fetching Flask data: {str(e)}')
+        messages.error(request, f'Error fetching Flask data: {str(e)}')
     
     # Calculate statistics for the dashboard
     total_ratings = JobRating.objects.count()
@@ -511,14 +528,13 @@ def superuser_dashboard_view(request):
         'flask_contact_messages': flask_contact_messages,
         'django_applications': django_applications,
         'flask_applications': flask_applications,
-        'flask_jobs': flask_jobs,
         'total_ratings': total_ratings,
         'jobs_with_ratings': jobs_with_ratings,
         'average_rating': round(average_rating, 1),
         'top_rated_jobs': top_rated_jobs,
-        'has_messages': contact_messages.exists() or flask_contact_messages.exists(),
-        'has_applications': django_applications.exists() or flask_applications.exists(),
-        'has_flask_messages': flask_contact_messages.exists(),
+        'has_messages': contact_messages.exists() or bool(flask_contact_messages),
+        'has_applications': django_applications.exists() or bool(flask_applications),
+        'has_flask_messages': bool(flask_contact_messages),
         'has_django_messages': contact_messages.exists(),
     }
     
@@ -615,7 +631,8 @@ def delete_test_message(request):
     messages.success(request, 'Test message has been removed successfully!')
     return redirect('jobapp:admin-dashboard')
 
-@login_required(login_url=reverse_lazy('account:login'))
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def update_application_status(request, application_id, status):
     if not request.user.is_superuser:
         return redirect('home')
@@ -628,16 +645,17 @@ def update_application_status(request, application_id, status):
         messages.success(request, f'Application status updated to {status}')
     except Applicant.DoesNotExist:
         try:
-            # Try Flask application
-            application = FlaskJobApplication.objects.using('flaskdb').get(id=application_id)
-            if status == 'shortlisted':
-                application.status = 'Accepted'
-            elif status == 'rejected':
-                application.status = 'Rejected'
-            application.save()
-            messages.success(request, f'Application status updated to {status}')
-        except FlaskJobApplication.DoesNotExist:
-            messages.error(request, 'Application not found')
+            # Try Flask application through API
+            response = requests.post(
+                f'http://127.0.0.1:5000/api/update-application-status/{application_id}',
+                json={'status': 'Accepted' if status == 'shortlisted' else 'Rejected'}
+            )
+            if response.status_code == 200:
+                messages.success(request, f'Application status updated to {status}')
+            else:
+                messages.error(request, 'Failed to update application status')
+        except Exception as e:
+            messages.error(request, f'Error updating application status: {str(e)}')
     
     return redirect('jobapp:admin-dashboard')
 
