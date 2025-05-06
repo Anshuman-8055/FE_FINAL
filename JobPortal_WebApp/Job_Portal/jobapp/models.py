@@ -168,3 +168,37 @@ class FlaskJobApplication(models.Model):
 
     def __str__(self):
         return f"Application {self.id} - {self.status}"
+
+class FlaskJob(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    company = models.CharField(max_length=100)
+    experience = models.CharField(max_length=20)
+    salary = models.CharField(max_length=50, null=True, blank=True)
+    location = models.CharField(max_length=100)
+    department = models.CharField(max_length=100)
+    company_type = models.CharField(max_length=100)
+    work_mode = models.CharField(max_length=100)
+    description = models.TextField()
+    rating = models.FloatField(null=True, blank=True)
+    reviews = models.IntegerField(null=True, blank=True)
+    date_posted = models.CharField(max_length=50, null=True, blank=True)
+
+    class Meta:
+        db_table = 'job'
+        managed = False
+
+    def save(self, *args, **kwargs):
+        kwargs['using'] = 'flaskdb'
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        kwargs['using'] = 'flaskdb'
+        super().delete(*args, **kwargs)
+
+    @classmethod
+    def objects(cls):
+        return super().objects.using('flaskdb')
+
+    def __str__(self):
+        return self.title

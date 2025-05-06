@@ -59,4 +59,12 @@ class FlaskJobApplicationAdmin(admin.ModelAdmin):
     readonly_fields = ('date_applied',)
     ordering = ('-date_applied',)
 
+@admin.register(FlaskJob)
+class FlaskJobAdmin(admin.ModelAdmin):
+    list_display = ('title', 'company', 'location', 'experience', 'salary', 'work_mode')
+    list_filter = ('company_type', 'work_mode', 'department')
+    search_fields = ('title', 'company', 'location', 'description')
+    readonly_fields = ('rating', 'reviews', 'date_posted')
+    ordering = ('-id',)
+
 

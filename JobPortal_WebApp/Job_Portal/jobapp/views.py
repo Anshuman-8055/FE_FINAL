@@ -491,17 +491,10 @@ def superuser_dashboard_view(request):
         for app in flask_applications:
             if app.job_id not in flask_jobs:
                 try:
-                    job = Job.objects.using('flaskdb').get(id=app.job_id)
+                    job = FlaskJob.objects.using('flaskdb').get(id=app.job_id)
                     flask_jobs[app.job_id] = job
-                except Job.DoesNotExist:
+                except FlaskJob.DoesNotExist:
                     flask_jobs[app.job_id] = None
-            
-            if app.user_id not in flask_users:
-                try:
-                    user = User.objects.using('flaskdb').get(id=app.user_id)
-                    flask_users[app.user_id] = user
-                except User.DoesNotExist:
-                    flask_users[app.user_id] = None
     except Exception as e:
         messages.warning(request, f'Could not load Flask data: {str(e)}')
     
@@ -521,7 +514,6 @@ def superuser_dashboard_view(request):
         'django_applications': django_applications,
         'flask_applications': flask_applications,
         'flask_jobs': flask_jobs,
-        'flask_users': flask_users,
         'total_ratings': total_ratings,
         'jobs_with_ratings': jobs_with_ratings,
         'average_rating': round(average_rating, 1),
@@ -529,6 +521,7 @@ def superuser_dashboard_view(request):
         'has_messages': contact_messages.exists() or flask_contact_messages.exists(),
         'has_applications': django_applications.exists() or flask_applications.exists(),
         'has_flask_messages': flask_contact_messages.exists(),
+        'has_django_messages': contact_messages.exists(),
     }
     
     return render(request, 'jobapp/superuser-dashboard.html', context)
