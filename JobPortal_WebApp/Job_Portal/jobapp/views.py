@@ -476,6 +476,9 @@ def superuser_dashboard_view(request):
     # Get all contact us messages
     contact_messages = Contact.objects.all().order_by('-timestamp')
     
+    # Get Flask contact messages
+    flask_contact_messages = FlaskContactMessage.objects.using('flaskdb').all().order_by('-date_submitted')
+    
     # Get rating statistics
     jobs_with_ratings = Job.objects.filter(ratings__isnull=False).distinct()
     total_ratings = JobRating.objects.count()
@@ -491,8 +494,10 @@ def superuser_dashboard_view(request):
     context = {
         'applications': applications,
         'contact_messages': contact_messages,
+        'flask_contact_messages': flask_contact_messages,
         'has_applications': applications.exists(),
         'has_messages': contact_messages.exists(),
+        'has_flask_messages': flask_contact_messages.exists(),
         'total_ratings': total_ratings,
         'average_rating': average_rating,
         'jobs_with_ratings': jobs_with_ratings.count(),

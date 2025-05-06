@@ -99,3 +99,26 @@ class JobRating(models.Model):
 
     def __str__(self):
         return f"{self.user.get_full_name()} - {self.job.title} - {self.rating} stars"
+
+class FlaskContactMessage(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+    date_submitted = models.DateTimeField()
+
+    class Meta:
+        db_table = 'contact'
+        managed = False
+
+    def save(self, *args, **kwargs):
+        kwargs['using'] = 'flaskdb'
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        kwargs['using'] = 'flaskdb'
+        super().delete(*args, **kwargs)
+
+    @classmethod
+    def objects(cls):
+        return super().objects.using('flaskdb')
