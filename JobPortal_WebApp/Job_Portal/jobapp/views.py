@@ -97,11 +97,12 @@ def create_job_View(request):
 
             instance = form.save(commit=False)
             instance.user = user
+            instance.is_published = True  # Automatically publish the job
             instance.save()
             # for save tags
             form.save_m2m()
             messages.success(
-                    request, 'You are successfully posted your job! Please wait for review.')
+                    request, 'Your job has been successfully posted!')
             return redirect(reverse("jobapp:single-job", kwargs={
                                     'id': instance.id
                                     }))
