@@ -380,6 +380,96 @@
             </div>
         </div>
     {% endif %}
+
+    <!-- Django Job Applications -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Django Job Applications</h5>
+        </div>
+        <div class="card-body">
+            {% if django_applications %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Applicant</th>
+                                <th>Job</th>
+                                <th>Status</th>
+                                <th>Date Applied</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for application in django_applications %}
+                            <tr>
+                                <td>{{ application.user.get_full_name }}</td>
+                                <td>{{ application.job.title }}</td>
+                                <td>{{ application.status }}</td>
+                                <td>{{ application.timestamp|date:"M d, Y" }}</td>
+                                <td>
+                                    <a href="{% url 'jobapp:applicant-detail' application.id %}" class="btn btn-sm btn-info">View</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted">No Django job applications found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Flask Job Applications -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Flask Job Applications</h5>
+        </div>
+        <div class="card-body">
+            {% if flask_applications %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Job Title</th>
+                                <th>Company</th>
+                                <th>Status</th>
+                                <th>Date Applied</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for application in flask_applications %}
+                            <tr>
+                                <td>{{ application.name }}</td>
+                                <td>{{ application.email }}</td>
+                                <td>{{ application.job_title }}</td>
+                                <td>{{ application.company }}</td>
+                                <td>{{ application.status }}</td>
+                                <td>{{ application.date_applied|date:"M d, Y" }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-info" onclick="viewFlaskApplication({{ application.id }})">View</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted">No Flask job applications found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Add JavaScript for viewing Flask applications -->
+    <script>
+    function viewFlaskApplication(id) {
+        // You can implement a modal or redirect to a detail view
+        alert('Viewing Flask application ' + id);
+    }
+    </script>
 </div>
 
 <style>

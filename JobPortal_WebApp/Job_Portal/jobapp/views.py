@@ -464,45 +464,28 @@ def contact_us_view(request):
 
 @login_required(login_url=reverse_lazy('account:login'))
 def superuser_dashboard_view(request):
-    """
-    Superuser dashboard to view all applications and contact forms
-    """
     if not request.user.is_superuser:
-        raise Http404("You don't have permission to access this page")
+        return redirect('home')
     
-    # Get all job applications with resume information
-    applications = Applicant.objects.select_related('job', 'user').all().order_by('-timestamp')
-    
-    # Get all contact us messages
+    # Get Django contact messages
     contact_messages = Contact.objects.all().order_by('-timestamp')
     
     # Get Flask contact messages
     flask_contact_messages = FlaskContactMessage.objects.using('flaskdb').all().order_by('-date_submitted')
     
-    # Get rating statistics
-    jobs_with_ratings = Job.objects.filter(ratings__isnull=False).distinct()
-    total_ratings = JobRating.objects.count()
-    average_rating = 0
-    if total_ratings > 0:
-        average_rating = round(JobRating.objects.aggregate(avg_rating=models.Avg('rating'))['avg_rating'], 1)
+    # Get Django job applications
+    django_applications = Applicant.objects.all().order_by('-timestamp')
     
-    # Get top rated jobs
-    top_rated_jobs = Job.objects.annotate(
-        avg_rating=models.Avg('ratings__rating')
-    ).filter(avg_rating__isnull=False).order_by('-avg_rating')[:5]
+    # Get Flask job applications
+    flask_applications = FlaskJobApplication.objects.using('flaskdb').all().order_by('-date_applied')
     
     context = {
-        'applications': applications,
         'contact_messages': contact_messages,
         'flask_contact_messages': flask_contact_messages,
-        'has_applications': applications.exists(),
-        'has_messages': contact_messages.exists(),
-        'has_flask_messages': flask_contact_messages.exists(),
-        'total_ratings': total_ratings,
-        'average_rating': average_rating,
-        'jobs_with_ratings': jobs_with_ratings.count(),
-        'top_rated_jobs': top_rated_jobs,
+        'django_applications': django_applications,
+        'flask_applications': flask_applications,
     }
+    
     return render(request, 'jobapp/superuser-dashboard.html', context)
 
 @login_required(login_url=reverse_lazy('account:login'))

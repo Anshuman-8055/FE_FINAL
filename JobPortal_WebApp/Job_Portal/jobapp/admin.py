@@ -43,4 +43,20 @@ class JobRatingAdmin(admin.ModelAdmin):
 
 admin.site.register(JobRating, JobRatingAdmin)
 
+class FlaskContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'date_submitted')
+    search_fields = ('name', 'email', 'message')
+    list_filter = ('date_submitted',)
+    readonly_fields = ('date_submitted',)
+
+admin.site.register(FlaskContactMessage, FlaskContactMessageAdmin)
+
+@admin.register(FlaskJobApplication)
+class FlaskJobApplicationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'job_title', 'company', 'date_applied', 'status')
+    list_filter = ('status', 'date_applied')
+    search_fields = ('name', 'email', 'job_title', 'company')
+    readonly_fields = ('date_applied',)
+    ordering = ('-date_applied',)
+
 
