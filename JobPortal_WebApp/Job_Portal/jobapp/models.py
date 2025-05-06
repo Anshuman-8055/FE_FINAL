@@ -202,3 +202,29 @@ class FlaskJob(models.Model):
 
     def __str__(self):
         return self.title
+
+class FlaskUser(models.Model):
+    id = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=100)
+    email = models.EmailField()
+    mobile = models.CharField(max_length=15)
+    role = models.CharField(max_length=10, default='user')
+
+    class Meta:
+        db_table = 'users'
+        managed = False
+
+    def save(self, *args, **kwargs):
+        kwargs['using'] = 'flaskdb'
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        kwargs['using'] = 'flaskdb'
+        super().delete(*args, **kwargs)
+
+    @classmethod
+    def objects(cls):
+        return super().objects.using('flaskdb')
+
+    def __str__(self):
+        return self.username

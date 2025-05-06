@@ -18,6 +18,7 @@ from jobapp.forms import *
 from jobapp.models import *
 from jobapp.permission import *
 from jobapp.models import Contact
+from .models import Job, Applicant, Contact, JobRating, FlaskContactMessage, FlaskJobApplication, FlaskJob, FlaskUser
 User = get_user_model()
 
 
@@ -534,11 +535,40 @@ def view_application(request, application_id):
         try:
             # Try Flask application
             application = FlaskJobApplication.objects.using('flaskdb').get(id=application_id)
+            print(f"Flask Application: {application.__dict__}")  # Debug print
+            print(f"Looking up FlaskUser with id={application.user_id}")
+            try:
+                flask_user = FlaskUser.objects.using('flaskdb').get(id=application.user_id)
+                print(f"Flask User: {flask_user.__dict__}")  # Debug print
+            except Exception as e:
+                print(f"FlaskUser lookup failed: {e}")
+                flask_user = None
+            print(f"Looking up FlaskJob with id={application.job_id}")
+            try:
+                flask_job = FlaskJob.objects.using('flaskdb').get(id=application.job_id)
+                print(f"Flask Job: {flask_job.__dict__}")  # Debug print
+            except Exception as e:
+                print(f"FlaskJob lookup failed: {e}")
+                flask_job = None
+            # Add user and job details to the application object
+            if flask_user:
+                application.name = flask_user.username
+                application.email = flask_user.email
+                application.phone = flask_user.mobile
+                print(f"Set application.name={application.name}, email={application.email}, phone={application.phone}")
+            else:
+                application.name = application.email = application.phone = None
+            if flask_job:
+                application.job_title = flask_job.title
+                application.company = flask_job.company
+                print(f"Set application.job_title={application.job_title}, company={application.company}")
+            else:
+                application.job_title = application.company = None
             is_flask = True
-        except FlaskJobApplication.DoesNotExist:
-            messages.error(request, 'Application not found.')
+        except (FlaskJobApplication.DoesNotExist) as e:
+            print(f"Error: {str(e)}")  # Debug print
+            messages.error(request, 'Application not found')
             return redirect('jobapp:admin-dashboard')
-    
     context = {
         'application': application,
         'is_flask': is_flask
