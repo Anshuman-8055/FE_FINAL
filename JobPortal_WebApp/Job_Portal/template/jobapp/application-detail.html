@@ -19,6 +19,9 @@
                                 <p><strong>Name:</strong> {{ application.name }}</p>
                                 <p><strong>Email:</strong> {{ application.email }}</p>
                                 <p><strong>Phone:</strong> {{ application.phone }}</p>
+                                <p><strong>Gender:</strong> {{ application.gender|default:"Not specified" }}</p>
+                                <p><strong>Date of Birth:</strong> {{ application.dob|default:"Not specified" }}</p>
+                                <p><strong>Experience:</strong> {{ application.experience|default:"Not specified" }}</p>
                             </div>
                             <div class="col-md-6">
                                 <h5>Job Information</h5>
@@ -26,21 +29,23 @@
                                 <p><strong>Company:</strong> {{ application.company }}</p>
                                 <p><strong>Date Applied:</strong> {{ application.date_applied|date:"F d, Y" }}</p>
                                 <p><strong>Status:</strong> 
-                                    <span class="badge {% if application.status == 'shortlisted' %}badge-success{% elif application.status == 'rejected' %}badge-danger{% else %}badge-warning{% endif %}">
+                                    <span class="badge {% if application.status == 'Accepted' %}badge-success{% elif application.status == 'Rejected' %}badge-danger{% else %}badge-warning{% endif %}">
                                         {{ application.status|title }}
                                     </span>
                                 </p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <h5>Cover Letter</h5>
-                                <div class="p-3 bg-light rounded">
-                                    {{ application.cover_letter|linebreaks }}
+                        {% if application.cover_letter %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5>Cover Letter</h5>
+                                    <div class="p-3 bg-light rounded">
+                                        {{ application.cover_letter|safe }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        {% if application.status == 'pending' %}
+                        {% endif %}
+                        {% if application.status == 'Pending' %}
                             <div class="row mt-4">
                                 <div class="col-12">
                                     <div class="btn-group">
