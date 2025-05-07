@@ -8,7 +8,7 @@ DATABASES = {
     },
     'flaskdb': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, '..', '..', 'jobportal', 'jobportal', 'jobportal', 'instance', 'database.db'),
+        'NAME': os.path.join(BASE_DIR, '..', '..', 'jobportal', 'jobportal', 'jobportal', 'instance', 'flaskdatabase.db'),
         'OPTIONS': {
             'timeout': 20,  # in seconds
         }

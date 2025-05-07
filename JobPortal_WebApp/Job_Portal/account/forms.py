@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
+from jobapp.models import FlaskUser
 
 from account.models import User
 
@@ -61,6 +62,17 @@ class EmployeeRegistrationForm(UserCreationForm):
         user.role = "employee"
         if commit:
             user.save()
+            # Create corresponding FlaskUser
+            try:
+                FlaskUser.objects.using('flaskdb').create(
+                    username=user.email,  # Using email as username
+                    email=user.email,
+                    mobile='',  # Default empty mobile
+                    role='employee'
+                )
+            except Exception as e:
+                # Log the error but don't prevent user creation
+                print(f"Error creating FlaskUser: {str(e)}")
         return user
 
 
@@ -111,6 +123,17 @@ class EmployerRegistrationForm(UserCreationForm):
         user.role = "employer"
         if commit:
             user.save()
+            # Create corresponding FlaskUser
+            try:
+                FlaskUser.objects.using('flaskdb').create(
+                    username=user.email,  # Using email as username
+                    email=user.email,
+                    mobile='',  # Default empty mobile
+                    role='employer'
+                )
+            except Exception as e:
+                # Log the error but don't prevent user creation
+                print(f"Error creating FlaskUser: {str(e)}")
         return user
 
 
